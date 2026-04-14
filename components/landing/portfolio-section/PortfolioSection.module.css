@@ -1,0 +1,24 @@
+.portfolioCard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #040404;
+  isolation: isolate;
+}
+
+.portfolioCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.06),
+      transparent 12%,
+      transparent 88%,
+      rgba(255, 255, 255, 0.04)
+    ),
+    linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.24));
+  mix-blend-mode: screen;
+  pointer-events: none;
+}

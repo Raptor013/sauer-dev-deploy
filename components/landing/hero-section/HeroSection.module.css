@@ -1,0 +1,110 @@
+.heroNeonSign {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  color: #ffeaea;
+  letter-spacing: 0.16em;
+  text-shadow:
+    0 0 10px rgba(255, 0, 60, 0.25),
+    0 0 24px rgba(255, 0, 60, 0.18);
+  filter: saturate(1.02);
+  will-change: opacity, text-shadow, filter, color;
+}
+
+.heroTextStroke {
+  -webkit-text-stroke: 12px #ef0020;
+  paint-order: stroke fill;
+}
+
+@supports not (-webkit-text-stroke: 1px #000) {
+  .heroTextStroke {
+    text-shadow:
+      8.8px 0 rgba(255, 24, 76, 0.95),
+      -8.8px 0 rgba(255, 24, 76, 0.95),
+      0 8.8px rgba(255, 24, 76, 0.95),
+      0 -8.8px rgba(255, 24, 76, 0.95),
+      8.8px 8.8px rgba(255, 24, 76, 0.95),
+      -8.8px 8.8px rgba(255, 24, 76, 0.95),
+      8.8px -8.8px rgba(255, 24, 76, 0.95),
+      -8.8px -8.8px rgba(255, 24, 76, 0.95);
+  }
+}
+
+.heroNeonBackdrop {
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 0, 60, 0.1) 0%,
+    rgba(255, 0, 60, 0.045) 28%,
+    rgba(255, 0, 60, 0.012) 56%,
+    transparent 74%
+  );
+  opacity: 0.08;
+  filter: blur(22px);
+  pointer-events: none;
+  will-change: opacity, transform, filter;
+}
+
+.heroNeonReflection {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 145, 170, 0.07) 0%,
+    rgba(255, 0, 60, 0.03) 22%,
+    rgba(255, 0, 60, 0.008) 42%,
+    transparent 68%
+  );
+  opacity: 0;
+  filter: blur(30px);
+  pointer-events: none;
+  will-change: opacity, filter, transform;
+}
+
+.heroNeonSign::before,
+.heroNeonSign::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.heroNeonSign::before {
+  color: rgba(255, 84, 119, 0.92);
+  opacity: 0.55;
+  filter: blur(10px);
+  transform: translateZ(0);
+}
+
+.heroNeonSign::after {
+  color: rgba(255, 186, 198, 0.72);
+  opacity: 0.35;
+  filter: blur(22px);
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroNeonSign,
+  .heroNeonSign::before,
+  .heroNeonSign::after {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .heroNeonSign {
+    color: #fff2f5;
+    text-shadow:
+      0 0 5px rgba(255, 164, 188, 0.28),
+      0 0 10px rgba(255, 0, 60, 0.16),
+      0 0 18px rgba(255, 0, 60, 0.06);
+  }
+
+  .heroNeonBackdrop {
+    opacity: 0.08;
+    filter: blur(18px) !important;
+  }
+
+  .heroNeonReflection {
+    opacity: 0.02 !important;
+    filter: blur(22px) !important;
+  }
+}

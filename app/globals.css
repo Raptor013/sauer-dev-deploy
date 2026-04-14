@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  --muted: #8f8f95;
+  --panel: #050505;
+  --crimson: #ff003c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Arial Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: var(--font-display);
+  --font-boldonse: var(--font-boldonse);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Arial Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  background-image:
+    radial-gradient(
+      circle at top left,
+      rgba(255, 0, 60, 0.08),
+      transparent 22%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 18%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(255, 0, 60, 0.85);
+  color: #fff;
+}
+
+.font-display {
+  font-family: var(--font-display), "Arial Narrow", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+}
+
+.font-boldonse {
+  font-family: var(--font-boldonse), "Arial Narrow", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+}
+
+@supports (-webkit-text-stroke: 1px #000) {
+  .boldonse-outline {
+    text-shadow: none;
+  }
+}
+
+.section-frame {
+  position: relative;
+}
+
+.section-frame::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.section-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.brutal-button {
+  display: inline-flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.85rem 1.4rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    scale 180ms ease;
+}
+
+.brutal-button:hover {
+  transform: translateY(-2px);
+  scale: 1.015;
+}
+
+.brutal-button-primary {
+  background: var(--crimson);
+  border-color: rgba(255, 0, 60, 0.9);
+  box-shadow: 0 0 22px rgba(255, 0, 60, 0.28);
+}
+
+.brutal-button-primary:hover {
+  background: #ff1a50;
+  box-shadow: 0 0 28px rgba(255, 0, 60, 0.48);
+}
+
+.brutal-button-secondary {
+  background: transparent;
+}
+
+.brutal-button-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.brutal-button-ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+.brutal-button-ghost:hover {
+  border-color: rgba(255, 0, 60, 0.95);
+  background: rgba(255, 0, 60, 0.06);
+  box-shadow: 0 0 26px rgba(255, 0, 60, 0.28);
+}
+
+.noise {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.08) 0.7px, transparent 0.7px),
+    radial-gradient(rgba(255, 255, 255, 0.05) 0.6px, transparent 0.6px);
+  background-position:
+    0 0,
+    14px 14px;
+  background-size:
+    18px 18px,
+    22px 22px;
+}
+
+.scanlines {
+  background-image: linear-gradient(
+    to bottom,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.05) 4px
+  );
+  background-size: 100% 5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .brutal-button {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    scale: 1 !important;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .section-kicker {
+    letter-spacing: 0.3em;
+  }
+
+  .brutal-button {
+    width: 100%;
+  }
+}
