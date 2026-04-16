@@ -1,3 +1,91 @@
+.heroRoot {
+  --hero-scroll-progress: 0;
+}
+
+.heroMedia {
+  transform: translate3d(
+      0,
+      calc(var(--hero-scroll-progress) * 42px),
+      0
+    )
+    scale(calc(1 + var(--hero-scroll-progress) * 0.045));
+  transform-origin: center top;
+  transition: transform 120ms linear;
+  will-change: transform;
+}
+
+.heroImage {
+  opacity: clamp(0.82, calc(1 - (var(--hero-scroll-progress) * 0.18)), 1);
+  transform: scale(calc(1 + var(--hero-scroll-progress) * 0.035));
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+  will-change: transform, opacity;
+}
+
+.heroOverlay {
+  opacity: calc(1 - (var(--hero-scroll-progress) * 0.2));
+  transition: opacity 120ms linear;
+  will-change: opacity;
+}
+
+.heroVignette {
+  opacity: calc(1 - (var(--hero-scroll-progress) * 0.12));
+  transition: opacity 120ms linear;
+  will-change: opacity;
+}
+
+.heroTopFade {
+  opacity: calc(1 - (var(--hero-scroll-progress) * 0.3));
+  transition: opacity 120ms linear;
+  will-change: opacity;
+}
+
+.heroNoise {
+  opacity: clamp(
+    0.05,
+    calc(0.12 - (var(--hero-scroll-progress) * 0.06)),
+    0.12
+  );
+  transition: opacity 120ms linear;
+  will-change: opacity;
+}
+
+.heroTransitionGlow {
+  opacity: calc(0.16 + (var(--hero-scroll-progress) * 0.68));
+  transform: translate3d(0, calc(var(--hero-scroll-progress) * -16px), 0)
+    scaleX(calc(1 + var(--hero-scroll-progress) * 0.08));
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+  will-change: opacity, transform;
+}
+
+.heroExitFade {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.18) 36%,
+    rgba(0, 0, 0, 0.86) 78%,
+    #000 100%
+  );
+  opacity: calc(0.08 + (var(--hero-scroll-progress) * 0.92));
+  transition: opacity 120ms linear;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.heroContent {
+  transform: translate3d(0, calc(var(--hero-scroll-progress) * 76px), 0);
+  opacity: clamp(0, calc(1 - (var(--hero-scroll-progress) * 1.08)), 1);
+  filter: blur(calc(var(--hero-scroll-progress) * 6px));
+  transition:
+    transform 120ms linear,
+    opacity 120ms linear,
+    filter 120ms linear;
+  will-change: transform, opacity, filter;
+}
+
 .heroNeonSign {
   position: relative;
   display: inline-block;
@@ -108,6 +196,21 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .heroMedia,
+  .heroImage,
+  .heroOverlay,
+  .heroVignette,
+  .heroTopFade,
+  .heroNoise,
+  .heroTransitionGlow,
+  .heroExitFade,
+  .heroContent {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
   .heroNeonSign,
   .heroNeonSign::before,
   .heroNeonSign::after {

@@ -1,4 +1,5 @@
 import { montserrat } from "@/app/fonts";
+import styles from "./Navbar.module.css";
 
 const navigationItems = [
   { label: "portfólio", href: "#portfolio" },
@@ -28,12 +29,12 @@ export const Navbar = () => {
           </span>
         </a>
 
-        <nav className="font-alata hidden items-center justify-center gap-8 text-[0.72rem] uppercase tracking-[0.22em] text-white/65 lg:flex ">
+        <nav className="font-alata hidden items-center justify-center gap-8 text-[0.72rem] uppercase tracking-[0.22em] lg:flex">
           {navigationItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="hover:text-[#EF0020] transition-colors duration-300 "
+              className={styles.navLinkDesktop}
             >
               {item.label}
             </a>
@@ -42,18 +43,18 @@ export const Navbar = () => {
 
         <a
           href="#contato"
-          className={`${montserrat.className} inline-flex min-h-11 items-center justify-center border border-[#EF0020] bg-[linear-gradient(180deg,rgba(60,0,10,0.82)_0%,rgba(25,2,6,0.96)_100%)] px-4 text-[0.82rem] font-black uppercase tracking-[0.12em] text-[#ffeaea] [text-shadow:0_0_1px_rgba(255,234,234,0.75),0_0_10px_rgba(255,120,150,0.16)] shadow-[0_0_10px_rgba(255,0,76,0.45),0_0_22px_rgba(255,0,76,0.28),inset_0_0_10px_rgba(255,120,150,0.12)] transition duration-300 hover:border-[#ff003c] hover:text-white hover:shadow-[0_0_14px_rgba(255,0,76,0.62),0_0_28px_rgba(255,0,76,0.38),inset_0_0_12px_rgba(255,120,150,0.18)] sm:px-5 lg:px-6`}
+          className={`${montserrat.className} cta-pulse-glow group relative inline-flex min-h-12 min-w-[11.5rem] items-center justify-center overflow-hidden border border-[#EF0020] bg-[linear-gradient(180deg,rgba(116,0,16,0.98)_0%,rgba(44,2,6,0.98)_100%)] px-7 text-[0.82rem] font-black uppercase tracking-[0.18em] text-[#fff4f4] [text-shadow:0_0_1px_rgba(255,244,244,0.85),0_0_14px_rgba(239,0,32,0.22)] transition duration-300 before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent_12%,rgba(255,255,255,0.18)_34%,transparent_56%)] before:translate-x-[-135%] before:transition-transform before:duration-700 hover:-translate-y-0.5 hover:border-[#ff2946] hover:text-white hover:shadow-[0_0_0_1px_rgba(239,0,32,0.42),0_0_22px_rgba(239,0,32,0.62),0_0_42px_rgba(239,0,32,0.34),inset_0_0_18px_rgba(239,0,32,0.16)] hover:before:translate-x-[135%] sm:min-w-[12.5rem] sm:px-8 lg:min-w-[13.5rem] lg:px-9`}
         >
-          AGENDE JÁ
+          <span className="relative">AGENDE JÁ</span>
         </a>
       </div>
 
-      <div className="font-alata relative mt-4 flex items-center gap-5 overflow-x-auto pb-1 text-[0.66rem] uppercase tracking-[0.24em] text-white/55 lg:hidden">
+      <div className="font-alata relative mt-4 flex items-center gap-5 overflow-x-auto pb-1 text-[0.66rem] uppercase tracking-[0.24em] lg:hidden">
         {navigationItems.map((item) => (
           <a
             key={item.label}
             href={item.href}
-            className="shrink-0 whitespace-nowrap transition-colors duration-300 hover:text-white"
+            className={`shrink-0 whitespace-nowrap ${styles.navLinkMobile}`}
           >
             {item.label}
           </a>

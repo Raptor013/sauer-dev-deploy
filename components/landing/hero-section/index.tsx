@@ -1,13 +1,15 @@
+"use client";
+
 import { boldonse, montserrat } from "@/app/fonts";
 import Image from "next/image";
-import type { RefObject } from "react";
+import { useEffect, useState, type RefObject } from "react";
 import { Navbar } from "../navbar";
 import styles from "./HeroSection.module.css";
 
 const metrics = [
-  { value: "5+", label: "ANOS DE", detail: "EXPERIÊNCIA" },
-  { value: "10+", label: "PREMIADO", detail: "" },
-  { value: "100%", label: "AVALIAÇÕES", detail: "POSITIVAS" },
+  { value: 5, suffix: "+", label: "ANOS DE", detail: "EXPERIÊNCIA" },
+  { value: 10, suffix: "+", label: "PREMIADO", detail: "" },
+  { value: 100, suffix: "%", label: "AVALIAÇÕES", detail: "POSITIVAS" },
 ] as const;
 
 type HeroSectionProps = {
@@ -15,35 +17,100 @@ type HeroSectionProps = {
 };
 
 export function HeroSection({ heroRef }: HeroSectionProps) {
+  const [animationProgress, setAnimationProgress] = useState(0);
+
+  useEffect(() => {
+    const element = heroRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    let frameId = 0;
+    let hasStarted = false;
+
+    const animateCounters = () => {
+      const startTime = performance.now();
+      const duration = 1800;
+
+      const step = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const linearProgress = Math.min(elapsed / duration, 1);
+        const easedProgress = 1 - Math.pow(1 - linearProgress, 3);
+
+        setAnimationProgress(easedProgress);
+
+        if (linearProgress < 1) {
+          frameId = window.requestAnimationFrame(step);
+        }
+      };
+
+      frameId = window.requestAnimationFrame(step);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting || hasStarted) {
+          return;
+        }
+
+        hasStarted = true;
+        observer.disconnect();
+        animateCounters();
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [heroRef]);
+
   return (
     <section
       ref={heroRef}
-      className="section-frame relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-black text-white"
+      className={`section-frame ${styles.heroRoot} relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-black text-white`}
     >
-      <div className="absolute inset-0">
+      <div className={`absolute inset-0 ${styles.heroMedia}`}>
         <Image
           src="/hero.webp"
           alt="Retrato em preto e branco do tatuador Sauer"
           fill
           priority
           sizes="100vw"
-          className="object-contain"
+          className={`object-contain ${styles.heroImage}`}
         />
       </div>
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_42%,rgba(255,0,60,0.16),transparent_30%),radial-gradient(circle_at_84%_18%,rgba(255,0,60,0.12),transparent_20%),linear-gradient(90deg,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.76)_24%,rgba(0,0,0,0.28)_46%,rgba(0,0,0,0.72)_70%,rgba(0,0,0,0.94)_100%),linear-gradient(180deg,rgba(0,0,0,0.9)_0%,rgba(0,0,0,0.42)_18%,rgba(0,0,0,0.18)_46%,rgba(0,0,0,0.8)_100%)]" />
+      <div
+        className={`absolute inset-0 bg-[radial-gradient(circle_at_20%_42%,rgba(255,0,60,0.16),transparent_30%),radial-gradient(circle_at_84%_18%,rgba(255,0,60,0.12),transparent_20%),linear-gradient(90deg,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.76)_24%,rgba(0,0,0,0.28)_46%,rgba(0,0,0,0.72)_70%,rgba(0,0,0,0.94)_100%),linear-gradient(180deg,rgba(0,0,0,0.9)_0%,rgba(0,0,0,0.42)_18%,rgba(0,0,0,0.18)_46%,rgba(0,0,0,0.8)_100%)] ${styles.heroOverlay}`}
+      />
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_44%,rgba(0,0,0,0.52)_100%)]" />
-      <div className="absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(0,0,0,0.44),transparent)]" />
+      <div
+        className={`absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_44%,rgba(0,0,0,0.52)_100%)] ${styles.heroVignette}`}
+      />
+      <div
+        className={`absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(0,0,0,0.44),transparent)] ${styles.heroTopFade}`}
+      />
       {/* <div className="absolute inset-x-0 bottom-[-8%] h-[18%] w-2/5 left-[35%] bg-[#F9000029] rounded-tl-full rounded-tr-full blur-lg" /> */}
 
-      <div className="noise absolute inset-0 opacity-[0.12]" />
+      <div className={`noise absolute inset-0 ${styles.heroNoise}`} />
 
-      <div className="absolute inset-x-0 bottom-[-8%] h-[12%] w-full bg-[#f9000027] rounded-tl-full rounded-tr-full blur-lg" />
+      <div
+        className={`absolute inset-x-0 bottom-[-8%] h-[12%] w-full rounded-tl-full rounded-tr-full bg-[#f9000027] blur-lg ${styles.heroTransitionGlow}`}
+      />
+      <div
+        className={`absolute inset-x-0 bottom-0 h-[32vh] ${styles.heroExitFade}`}
+      />
 
       <Navbar />
 
-      <div className="relative z-10 flex flex-1 flex-col px-4 pb-8 pt-0 sm:px-6 sm:pb-10  lg:px-10 lg:pb-12 ">
+      <div
+        className={`relative z-10 flex flex-1 flex-col px-4 pb-8 pt-0 sm:px-6 sm:pb-10 lg:px-10 lg:pb-12 ${styles.heroContent}`}
+      >
         <div className="flex flex-1 items-center">
           <div className="grid w-full grid-cols-1 gap-8 pt-10 sm:pt-12 lg:grid-cols-[minmax(290px,0.88fr)_minmax(280px,1.06fr)_minmax(180px,0.4fr)] lg:items-center lg:gap-4 lg:pt-6 xl:grid-cols-[minmax(320px,0.88fr)_minmax(360px,1.08fr)_minmax(190px,0.42fr)]">
             <div className="relative z-20 order-1 flex max-w-[26rem] flex-col justify-center lg:pl-3 xl:pl-8">
@@ -74,7 +141,7 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
                 <span
                   className={`${boldonse.className} text-[2.5rem] leading-none text-[#EF0020] sm:text-[2.2rem]`}
                 >
-                  100+
+                  {formatCounterValue(100, animationProgress, "+")}
                 </span>
                 <span
                   className={`${montserrat.className} mt-2 text-[0.82rem] uppercase leading-[1.15] tracking-[0.22em] text-white`}
@@ -106,7 +173,11 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
                     <p
                       className={`${boldonse.className} text-[2.4rem] leading-none text-[#EF0020] sm:text-[2.7rem] lg:text-[2.2rem]`}
                     >
-                      {item.value}
+                      {formatCounterValue(
+                        item.value,
+                        animationProgress,
+                        item.suffix,
+                      )}
                     </p>
                     <p
                       className={`${montserrat.className} mt-2 text-[0.82rem] uppercase leading-[1.1] tracking-[0.24em] text-white`}
@@ -157,3 +228,13 @@ export const Title = ({ title }: { title: string }) => {
     </h1>
   );
 };
+
+function formatCounterValue(
+  target: number,
+  progress: number,
+  suffix = "",
+) {
+  const currentValue = Math.round(target * progress);
+
+  return `${currentValue}${suffix}`;
+}

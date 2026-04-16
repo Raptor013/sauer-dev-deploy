@@ -1,0 +1,25 @@
+.navLinkDesktop {
+  color: rgb(255 255 255 / 0.65);
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
+}
+
+.navLinkDesktop:hover,
+.navLinkDesktop:focus-visible {
+  color: #ef0020;
+  text-shadow: 0 0 10px rgba(239, 0, 32, 0.3);
+}
+
+.navLinkMobile {
+  color: rgb(255 255 255 / 0.55);
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
+}
+
+.navLinkMobile:hover,
+.navLinkMobile:focus-visible {
+  color: #ef0020;
+  text-shadow: 0 0 10px rgba(239, 0, 32, 0.3);
+}
