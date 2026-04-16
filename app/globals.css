@@ -12,8 +12,6 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: "Arial Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-display: var(--font-display);
-  --font-boldonse: var(--font-boldonse);
 }
 
 * {
@@ -49,14 +47,29 @@ a {
 }
 
 .font-display {
-  font-family: var(--font-display), "Arial Narrow", "Helvetica Neue", Helvetica,
-    Arial, sans-serif;
+  font-family:
+    var(--font-display), "Arial Narrow", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
 }
 
 .font-boldonse {
-  font-family: var(--font-boldonse), "Arial Narrow", "Helvetica Neue", Helvetica,
-    Arial, sans-serif;
+  font-family:
+    var(--font-boldonse), "Arial Narrow", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
 }
+
+.font-alata {
+  font-family:
+    var(--font-alata), "Arial Narrow", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-weight: 400;
+}
+
+/* .font-montserrat {
+  font-family:
+    var(--font-montserrat), "Arial Narrow", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+} */
 
 @supports (-webkit-text-stroke: 1px #000) {
   .boldonse-outline {
@@ -171,7 +184,6 @@ a {
     transform: none !important;
     scale: 1 !important;
   }
-
 }
 
 @media (max-width: 640px) {

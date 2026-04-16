@@ -4,14 +4,39 @@
   isolation: isolate;
   color: #ffeaea;
   letter-spacing: 0.16em;
+
   text-shadow:
     0 0 10px rgba(255, 0, 60, 0.25),
     0 0 24px rgba(255, 0, 60, 0.18);
-  filter: saturate(1.02);
-  will-change: opacity, text-shadow, filter, color;
+  /* filter: saturate(1.02); */
+  /* will-change: opacity, text-shadow, filter, color; */
 }
 
-.heroTextStroke {
+.stroke {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+
+  color: #ffeaea;
+  -webkit-text-stroke: 7px #ef0020;
+
+  letter-spacing: 0.14em;
+  transform: scale(1); /* base */
+}
+
+.stroke::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: 10px rgba(239, 0, 32, 0.7);
+  filter: blur(12px);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* .heroTextStroke {
   -webkit-text-stroke: 12px #ef0020;
   paint-order: stroke fill;
 }
@@ -28,7 +53,7 @@
       8.8px -8.8px rgba(255, 24, 76, 0.95),
       -8.8px -8.8px rgba(255, 24, 76, 0.95);
   }
-}
+} */
 
 .heroNeonBackdrop {
   border-radius: 999px;
