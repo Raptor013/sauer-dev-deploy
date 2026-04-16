@@ -2,7 +2,10 @@ import Image from "next/image";
 
 export function AboutSection() {
   return (
-    <section className="section-frame overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
+    <section
+      id="sobre"
+      className="section-frame overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-24"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="relative overflow-hidden border border-white/10 bg-[#040404]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,0,60,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_24%)]" />

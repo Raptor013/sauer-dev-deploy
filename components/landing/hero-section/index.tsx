@@ -74,7 +74,7 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
       ref={heroRef}
       className={`section-frame ${styles.heroRoot} relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-black text-white`}
     >
-      <div className={`absolute inset-0 ${styles.heroMedia}`}>
+      <div className={`absolute ${styles.heroMediaFrame} ${styles.heroMedia}`}>
         <Image
           src="/hero.webp"
           alt="Retrato em preto e branco do tatuador Sauer"
@@ -88,6 +88,7 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
       <div
         className={`absolute inset-0 bg-[radial-gradient(circle_at_20%_42%,rgba(255,0,60,0.16),transparent_30%),radial-gradient(circle_at_84%_18%,rgba(255,0,60,0.12),transparent_20%),linear-gradient(90deg,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.76)_24%,rgba(0,0,0,0.28)_46%,rgba(0,0,0,0.72)_70%,rgba(0,0,0,0.94)_100%),linear-gradient(180deg,rgba(0,0,0,0.9)_0%,rgba(0,0,0,0.42)_18%,rgba(0,0,0,0.18)_46%,rgba(0,0,0,0.8)_100%)] ${styles.heroOverlay}`}
       />
+      <div className={`absolute inset-0 lg:hidden ${styles.heroMobileOverlay}`} />
 
       <div
         className={`absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_44%,rgba(0,0,0,0.52)_100%)] ${styles.heroVignette}`}
@@ -109,7 +110,68 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
       <Navbar />
 
       <div
-        className={`relative z-10 flex flex-1 flex-col px-4 pb-8 pt-0 sm:px-6 sm:pb-10 lg:px-10 lg:pb-12 ${styles.heroContent}`}
+        className={`relative z-10 flex flex-1 flex-col px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-0 sm:px-6 sm:pb-[calc(1.25rem+env(safe-area-inset-bottom))] lg:hidden ${styles.heroContent}`}
+      >
+        <div className="mt-auto">
+          <div
+            className={`relative mx-auto w-full max-w-[23rem] overflow-hidden rounded-[1.75rem] border border-white/10 bg-black/42 p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_22px_70px_rgba(0,0,0,0.5)] backdrop-blur-md sm:max-w-[25rem] sm:rounded-[2rem] sm:p-5 ${styles.mobileHeroPanel}`}
+          >
+            <div className="absolute inset-x-6 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(239,0,32,0.68),transparent)]" />
+
+            <p
+              className={`${montserrat.className} inline-flex rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-white/72 sm:text-[0.68rem]`}
+            >
+              tattoo artist
+            </p>
+
+            <div className="relative mt-4">
+              <div
+                className={`${styles.heroNeonBackdrop} absolute -inset-x-4 -inset-y-5 opacity-70`}
+              />
+
+              <Title
+                title="SAUER"
+                compact
+                className="tracking-[0.08em]"
+              />
+            </div>
+
+            <p
+              className={`${montserrat.className} mt-3 max-w-[16rem] text-[0.88rem] font-semibold uppercase leading-[1.18] tracking-[0.18em] text-white sm:max-w-[18rem] sm:text-[0.98rem]`}
+            >
+              Algumas histórias precisam ser eternas
+            </p>
+
+            <div className="mt-4 flex flex-wrap gap-2 text-[0.62rem] uppercase tracking-[0.22em] text-white/78 sm:text-[0.68rem]">
+              <span className="inline-flex min-h-9 items-center rounded-full border border-[#EF0020]/25 bg-[#EF0020]/10 px-3">
+                {formatCounterValue(100, animationProgress, "+")} projetos
+              </span>
+              <span className="inline-flex min-h-9 items-center rounded-full border border-white/10 bg-white/[0.04] px-3">
+                Rio de Janeiro
+              </span>
+            </div>
+
+            <div className="mt-5 flex flex-col gap-3">
+              <a
+                href="#contato"
+                className={`${montserrat.className} inline-flex min-h-12 items-center justify-center rounded-full border border-[#EF0020] bg-[linear-gradient(180deg,rgba(116,0,16,0.94)_0%,rgba(44,2,6,0.96)_100%)] px-5 text-[0.74rem] font-bold uppercase tracking-[0.24em] text-[#fff2f2] shadow-[0_0_0_1px_rgba(239,0,32,0.16),0_0_22px_rgba(239,0,32,0.2)] transition duration-300 hover:border-[#ff2946] hover:shadow-[0_0_0_1px_rgba(239,0,32,0.3),0_0_28px_rgba(239,0,32,0.28)]`}
+              >
+                Agende sua tattoo
+              </a>
+
+              <a
+                href="#portfolio"
+                className={`${montserrat.className} inline-flex min-h-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] px-5 text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-white/76 transition duration-300 hover:border-white/20 hover:bg-white/[0.05] hover:text-white`}
+              >
+                Ver portfólio
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`relative z-10 hidden flex-1 flex-col px-4 pb-8 pt-0 sm:px-6 sm:pb-10 lg:flex lg:px-10 lg:pb-12 ${styles.heroContent}`}
       >
         <div className="flex flex-1 items-center">
           <div className="grid w-full grid-cols-1 gap-8 pt-10 sm:pt-12 lg:grid-cols-[minmax(290px,0.88fr)_minmax(280px,1.06fr)_minmax(180px,0.4fr)] lg:items-center lg:gap-4 lg:pt-6 xl:grid-cols-[minmax(320px,0.88fr)_minmax(360px,1.08fr)_minmax(190px,0.42fr)]">
@@ -215,10 +277,22 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
 //   );
 // };
 
-export const Title = ({ title }: { title: string }) => {
+export const Title = ({
+  title,
+  compact = false,
+  className = "",
+}: {
+  title: string;
+  compact?: boolean;
+  className?: string;
+}) => {
+  const sizeClasses = compact
+    ? "text-[clamp(2.85rem,15vw,4.85rem)] leading-[0.94]"
+    : "text-[4.9rem] leading-[1.10] sm:text-[6.4rem] lg:text-[5.2rem] xl:text-[5rem]";
+
   return (
     <h1
-      className={`relative inline-block origin-center scale-y-[1.13] text-[4.9rem] leading-[1.10] sm:text-[6.4rem] lg:text-[5.2rem] xl:text-[5rem]  ${boldonse.className}`}
+      className={`relative inline-block origin-center scale-y-[1.13] ${sizeClasses} ${className} ${boldonse.className}`}
     >
       <span data-text={title} className={`${styles.stroke}`}>
         {title}
