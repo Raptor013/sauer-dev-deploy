@@ -15,7 +15,12 @@ function getArtworkStyle(item: (typeof portfolioItems)[number]) {
 
 function AwardIcon({ className }: { className: string }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 64 64" className={className} fill="none">
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 64 64"
+      className={className}
+      fill="none"
+    >
       <path
         d="M14 24.5c0-1.3 1.5-2 2.5-1.2l9.3 7.4c.8.6 1.9.3 2.2-.6l3.2-10.1c.4-1.2 2.1-1.2 2.5 0l3.2 10.1c.3.9 1.4 1.2 2.2.6l9.3-7.4c1-.8 2.5-.1 2.5 1.2l-3.4 20.1H17.4L14 24.5Z"
         fill="#ffd24d"
@@ -123,7 +128,6 @@ function AwardDetails({
   return (
     <div className="pointer-events-none mb-4 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 sm:mb-5">
       <div className="award-label text-[0.84rem] font-black uppercase tracking-[0.24em] text-[#ff6a7f] sm:text-[0.95rem]">
-       
         <span>Premiado</span>
       </div>
       <p className="award-title mt-1 text-base font-black uppercase leading-tight tracking-[0.16em] text-[#ff7185] sm:mt-3 sm:text-lg">
@@ -161,7 +165,7 @@ export function PortfolioSection() {
       id="portfolio"
       className="section-frame px-6 py-20 sm:px-8 lg:px-12 lg:py-24"
     >
-      <div className="absolute inset-x-0 top-1 h-[5%] w-full bg-[radial-gradient(circle_at_center,rgba(249,0,0,0.1),transparent_90%)] blur-2xl" />
+      {/* <div className="absolute inset-x-0 top-1 h-[5%] w-full bg-[radial-gradient(circle_at_center,rgba(249,0,0,0.1),transparent_90%)] blur-2xl" /> */}
       <div className="mb-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
         <div>
           <p className="section-kicker">PORTFÓLIO</p>
@@ -176,9 +180,7 @@ export function PortfolioSection() {
       </div>
 
       <div className="grid gap-5 xl:hidden">
-        {portfolioRows
-          .slice(0, showMore ? 2 : 1)
-          .map((row, rowIndex) => (
+        {portfolioRows.slice(0, showMore ? 2 : 1).map((row, rowIndex) => (
           <div
             key={`portfolio-row-${rowIndex}`}
             className="grid gap-5 md:grid-cols-2 xl:grid-cols-4"
@@ -201,7 +203,9 @@ export function PortfolioSection() {
                 <div className="relative min-h-[30rem] md:min-h-0" />
                 <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6">
                   <div className="bg-black/45 px-4 py-3 backdrop-blur-[1px] sm:bg-transparent sm:px-0 sm:py-0">
-                    {item.isAwarded && item.award ? <AwardDetails award={item.award} /> : null}
+                    {item.isAwarded && item.award ? (
+                      <AwardDetails award={item.award} />
+                    ) : null}
                     <h3 className="font-display text-[2rem] leading-none tracking-[-0.04em] text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.95)] sm:text-5xl">
                       {item.title}
                     </h3>
@@ -221,7 +225,9 @@ export function PortfolioSection() {
             style={{ gridRow: `span ${desktopTopSpans[index]}` }}
           >
             {item.isAwarded ? <AwardBadge /> : null}
-            <div className={`absolute inset-0 bg-gradient-to-br ${item.accent}`} />
+            <div
+              className={`absolute inset-0 bg-gradient-to-br ${item.accent}`}
+            />
             <div
               className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
               style={getArtworkStyle(item)}
@@ -230,7 +236,9 @@ export function PortfolioSection() {
             <div className="absolute inset-0 bg-[#ff003c]/0 transition-colors duration-500 group-hover:bg-[#ff003c]/18" />
             <div className="relative h-full min-h-[22rem]" />
             <div className="absolute inset-x-0 bottom-0 z-10 p-6">
-              {item.isAwarded && item.award ? <AwardDetails award={item.award} /> : null}
+              {item.isAwarded && item.award ? (
+                <AwardDetails award={item.award} />
+              ) : null}
               <h3 className="font-display text-5xl leading-none tracking-[-0.04em] text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.95)]">
                 {item.title}
               </h3>
@@ -252,14 +260,16 @@ export function PortfolioSection() {
                 className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
                 style={getArtworkStyle(item)}
               />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.18)_42%,rgba(0,0,0,0.98)_100%)]" />
-            <div className="absolute inset-0 bg-[#ff003c]/0 transition-colors duration-500 group-hover:bg-[#ff003c]/18" />
-            <div className="relative h-full min-h-[22rem]" />
-            <div className="absolute inset-x-0 bottom-0 z-10 p-6">
-              {item.isAwarded && item.award ? <AwardDetails award={item.award} /> : null}
-              <h3 className="font-display text-5xl leading-none tracking-[-0.04em] text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.95)]">
-                {item.title}
-              </h3>
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.18)_42%,rgba(0,0,0,0.98)_100%)]" />
+              <div className="absolute inset-0 bg-[#ff003c]/0 transition-colors duration-500 group-hover:bg-[#ff003c]/18" />
+              <div className="relative h-full min-h-[22rem]" />
+              <div className="absolute inset-x-0 bottom-0 z-10 p-6">
+                {item.isAwarded && item.award ? (
+                  <AwardDetails award={item.award} />
+                ) : null}
+                <h3 className="font-display text-5xl leading-none tracking-[-0.04em] text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.95)]">
+                  {item.title}
+                </h3>
               </div>
             </article>
           ))}

@@ -15,7 +15,7 @@ export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
 
     const handleViewportChange = (event: MediaQueryListEvent) => {
       if (event.matches) {
@@ -42,19 +42,20 @@ export const Navbar = () => {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,0,60,0.06)_0%,rgba(0,0,0,0)_16%,rgba(0,0,0,0)_84%,rgba(255,0,60,0.06)_100%)]" />
       </div>
 
-      <div className="relative hidden items-center justify-between gap-4 lg:flex">
+      {/* Desktop Navigation */}
+      <div className="relative hidden items-center justify-between gap-4 md:flex">
         <a href="#" className="shrink-0 uppercase leading-none">
           <span
-            className={`font-boldonse block pt-2 text-[1.40rem] tracking-[0.24em] text-white sm:text-[1.70rem]`}
+            className={`font-boldonse block pt-1.5 text-[1.18rem] tracking-[0.22em] text-white lg:pt-2 lg:text-[1.40rem] xl:text-[1.70rem]`}
           >
             SAUER
           </span>
-          <span className="font-alata mt-2 block text-[0.62rem] tracking-[0.34em] text-white/55">
+          <span className="font-alata mt-1.5 block text-[0.58rem] tracking-[0.28em] text-white/55 lg:mt-2 lg:text-[0.67rem] lg:tracking-[0.34em]">
             tattoo artist
           </span>
         </a>
 
-        <div className="font-alata flex items-center justify-center gap-8 text-[0.72rem] uppercase tracking-[0.22em]">
+        <div className="font-alata flex items-center justify-center gap-4 text-[0.6rem] uppercase tracking-[0.16em] lg:gap-8 lg:text-[0.72rem] lg:tracking-[0.22em]">
           {navigationItems.map((item) => (
             <a
               key={item.label}
@@ -68,30 +69,31 @@ export const Navbar = () => {
 
         <a
           href="#contato"
-          className={`${montserrat.className} cta-pulse-glow group relative inline-flex min-h-12 min-w-[11.5rem] items-center justify-center overflow-hidden border border-[#EF0020] bg-[linear-gradient(180deg,rgba(116,0,16,0.98)_0%,rgba(44,2,6,0.98)_100%)] px-7 text-[0.82rem] font-black uppercase tracking-[0.18em] text-[#fff4f4] [text-shadow:0_0_1px_rgba(255,244,244,0.85),0_0_14px_rgba(239,0,32,0.22)] transition duration-300 before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent_12%,rgba(255,255,255,0.18)_34%,transparent_56%)] before:translate-x-[-135%] before:transition-transform before:duration-700 hover:-translate-y-0.5 hover:border-[#ff2946] hover:text-white hover:shadow-[0_0_0_1px_rgba(239,0,32,0.42),0_0_22px_rgba(239,0,32,0.62),0_0_42px_rgba(239,0,32,0.34),inset_0_0_18px_rgba(239,0,32,0.16)] hover:before:translate-x-[135%] sm:min-w-[12.5rem] sm:px-8 lg:min-w-[13.5rem] lg:px-9`}
+          className={`${montserrat.className} cta-pulse-glow group relative inline-flex min-h-11 min-w-[9.75rem] items-center justify-center overflow-hidden border border-[#EF0020] bg-[linear-gradient(180deg,rgba(116,0,16,0.98)_0%,rgba(44,2,6,0.98)_100%)] px-5 text-[0.68rem] font-black uppercase tracking-[0.14em] text-[#fff4f4] [text-shadow:0_0_1px_rgba(255,244,244,0.85),0_0_14px_rgba(239,0,32,0.22)] transition duration-300 before:absolute before:inset-0 before:bg-[linear-gradient(120deg,transparent_12%,rgba(255,255,255,0.18)_34%,transparent_56%)] before:translate-x-[-135%] before:transition-transform before:duration-700 hover:-translate-y-0.5 hover:border-[#ff2946] hover:text-white hover:shadow-[0_0_0_1px_rgba(239,0,32,0.42),0_0_22px_rgba(239,0,32,0.62),0_0_42px_rgba(239,0,32,0.34),inset_0_0_18px_rgba(239,0,32,0.16)] hover:before:translate-x-[135%] lg:min-h-12 lg:min-w-[13.5rem] lg:px-9 lg:text-[0.82rem] lg:tracking-[0.18em]`}
         >
           <span className="relative">AGENDE JÁ</span>
         </a>
       </div>
 
-      <div className="relative lg:hidden">
+      {/* Mobile Navigation */}
+      <div className="relative md:hidden">
         <div className="flex items-center justify-between gap-3">
           <a href="#" className="min-w-0 shrink uppercase leading-none">
             <span className="font-boldonse block pt-1 text-[1.08rem] tracking-[0.22em] text-white sm:text-[1.15rem]">
               SAUER
             </span>
-            <span className="font-alata mt-1 block text-[0.54rem] tracking-[0.3em] text-white/46">
+            {/* <span className="font-alata mt-1 block text-[0.54rem] tracking-[0.3em] text-white/46">
               tattoo artist
-            </span>
+            </span> */}
           </a>
 
           <div className="flex items-center gap-2">
-            <a
+            {/* <a
               href="#contato"
               className={`${montserrat.className} inline-flex h-10 items-center justify-center rounded-full border border-[#EF0020]/80 bg-[linear-gradient(180deg,rgba(116,0,16,0.94)_0%,rgba(44,2,6,0.96)_100%)] px-4 text-[0.66rem] font-bold uppercase tracking-[0.18em] text-[#fff2f2] shadow-[0_0_0_1px_rgba(239,0,32,0.18),0_0_18px_rgba(239,0,32,0.18)]`}
             >
               Agendar
-            </a>
+            </a> */}
 
             <button
               type="button"
@@ -122,14 +124,14 @@ export const Navbar = () => {
           <div className={styles.mobileMenuInner}>
             <div
               id="mobile-navigation"
-              className="grid grid-cols-2 gap-2 rounded-[1.4rem] border border-white/10 bg-black/78 p-2 backdrop-blur-xl"
+              className="grid grid-cols-2 gap-2 border border-white/10 bg-black/78 p-2 backdrop-blur-xl"
             >
               {navigationItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
                   onClick={closeMenu}
-                  className={`${styles.navLinkMobile} font-alata inline-flex min-h-11 items-center justify-center rounded-[1rem] border border-white/8 bg-white/[0.03] px-3 text-center text-[0.68rem] uppercase tracking-[0.2em]`}
+                  className={`${styles.navLinkMobile} font-alata inline-flex min-h-11 items-center justify-center  border border-white/8 bg-white/[0.03] px-3 text-center text-[0.68rem] uppercase tracking-[0.2em]`}
                 >
                   {item.label}
                 </a>
