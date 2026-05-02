@@ -105,7 +105,7 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
       {/* Background media - mobile */}
       <div className={mobileMediaClassName}>
         <Image
-          src="/hero-mobile-final.jpg"
+          src="/mobile-hero.png"
           alt="Retrato em preto e branco do tatuador Sauer"
           fill
           priority
