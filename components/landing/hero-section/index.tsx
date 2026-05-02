@@ -75,7 +75,7 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
   const sharedOverlayClassName = `absolute inset-0 bg-[radial-gradient(circle_at_20%_42%,rgba(255,0,60,0.16),transparent_30%),radial-gradient(circle_at_84%_18%,rgba(255,0,60,0.12),transparent_20%),linear-gradient(90deg,rgba(0,0,0,0.94)_0%,rgba(0,0,0,0.76)_24%,rgba(0,0,0,0.28)_46%,rgba(0,0,0,0.72)_70%,rgba(0,0,0,0.94)_100%),linear-gradient(180deg,rgba(0,0,0,0.9)_0%,rgba(0,0,0,0.42)_18%,rgba(0,0,0,0.18)_46%,rgba(0,0,0,0.8)_100%)] ${styles.heroOverlay}`;
   const vignetteClassName = `absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_44%,rgba(0,0,0,0.52)_100%)] ${styles.heroVignette}`;
   const topFadeClassName = `absolute inset-x-0 top-0 h-36 bg-[linear-gradient(180deg,rgba(0,0,0,0.44),transparent)] ${styles.heroTopFade}`;
-  const transitionGlowClassName = `absolute inset-x-0 bottom-[-8%] h-[12%] w-full rounded-tl-full rounded-tr-full bg-[radial-gradient(ellipse_at_center,rgba(255,20,20,0.98)_0%,rgba(249,0,0,0.64)_34%,rgba(249,0,0,0.24)_62%,transparent_100%)] blur-lg ${styles.heroTransitionGlow}`;
+  const transitionGlowClassName = `absolute inset-x-0 bottom-[-8%] h-[10%] w-full rounded-tl-full rounded-tr-full bg-[radial-gradient(ellipse_at_center,rgba(255,20,20,0.98)_0%,rgba(249,0,0,0.64)_34%,rgba(249,0,0,0.24)_62%,transparent_100%)] blur-lg ${styles.heroTransitionGlow}`;
   const exitFadeClassName = `absolute inset-x-0 bottom-0 h-[32vh] ${styles.heroExitFade}`;
 
   const mobileContentClassName = `relative z-10 flex flex-1 flex-col px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-0 sm:px-6 sm:pb-[calc(1.25rem+env(safe-area-inset-bottom))] md:hidden ${styles.heroContent}`;
@@ -92,7 +92,9 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
   const desktopDescriptionClassName = `${montserrat.className} mt-1.5 max-w-[16rem] text-[1.05rem] font-semibold uppercase leading-[1.12] tracking-[0.2em] text-white sm:mt-2 sm:max-w-[20rem] sm:text-[1.18rem]`;
   const desktopFeaturedMetricClassName =
     "mt-8 inline-flex w-fit min-w-44 flex-col border border-[#EF0020] bg-black/40 px-5 py-4 shadow-[0_0_0_1px_rgba(255,0,60,0.16),0_0_24px_rgba(255,0,60,0.1)] backdrop-blur-[2px] sm:px-6 sm:py-5";
+
   const desktopPrimaryCtaClassName = `${montserrat.className} mt-8 inline-flex min-h-14 w-full max-w-[16rem] items-center justify-center border border-[#EF0020] bg-black/36 px-6 text-[1rem] font-normal uppercase tracking-[0.28em] text-[#FFEAEA] shadow-[0_0_0_1px_rgba(255,0,60,0.08)] backdrop-blur-[2px] transition duration-300 hover:-translate-y-0.5 hover:border-[#ff0037] hover:bg-[#130204]/92 hover:shadow-[0_0_24px_rgba(255,0,60,0.22)] sm:max-w-68`;
+
   const metricsGridClassName =
     "grid w-full gap-4 sm:grid-cols-3 lg:w-auto lg:grid-cols-1 lg:gap-6 xl:gap-8";
   const metricCardClassName =
@@ -117,7 +119,7 @@ export function HeroSection({ heroRef }: HeroSectionProps) {
       {/* Background media - desktop */}
       <div className={desktopMediaClassName}>
         <Image
-          src="/hero.webp"
+          src="/hero.png"
           alt="Retrato em preto e branco do tatuador Sauer"
           fill
           priority

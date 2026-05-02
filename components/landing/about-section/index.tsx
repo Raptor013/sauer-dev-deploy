@@ -6,10 +6,15 @@ export function AboutSection() {
       id="sobre"
       className="section-frame overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-24"
     >
-      <div className="mx-auto max-w-6xl">
-        <div className="relative overflow-hidden border border-white/10 bg-[#040404]">
+      <div className="relative mx-auto max-w-6xl">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-4 bg-[#EF0020]/28 blur-[34px] sm:-inset-5 lg:-inset-6"
+        />
+
+        <div className="relative overflow-hidden border border-none bg-[#040404]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,0,60,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_24%)]" />
-          <div className="absolute left-0 top-0 h-px w-28 bg-[#ff003c]/75 sm:w-40" />
+          {/* <div className="absolute left-0 top-0 h-px w-28 bg-[#ff003c]/75 sm:w-40" /> */}
           <div className="absolute bottom-0 right-0 h-px w-24 bg-white/10 sm:w-32" />
 
           <div className="relative grid gap-10 p-5 sm:p-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14 lg:p-10 xl:p-12">
@@ -19,7 +24,7 @@ export function AboutSection() {
                 <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0.02)_0%,rgba(0,0,0,0.12)_44%,rgba(0,0,0,0.65)_100%)]" />
                 <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_36%)] mix-blend-screen" />
                 <Image
-                  src="/fred.jpeg"
+                  src="/fred.jpg"
                   alt="Retrato do tatuador Fred Sauer"
                   width={1200}
                   height={1500}
@@ -29,21 +34,13 @@ export function AboutSection() {
                 />
               </div>
 
-              <div className="mt-4 grid gap-px bg-white/10 sm:grid-cols-[minmax(0,1fr)_auto]">
+              <div className="mt-4 grid gap-px bg-white/10">
                 <div className="bg-black px-4 py-4 sm:px-5">
                   <p className="text-[0.68rem] uppercase tracking-[0.32em] text-white/38">
                     Rio de Janeiro, RJ
                   </p>
                   <p className="mt-2 font-display text-2xl leading-none tracking-[-0.04em] text-white sm:text-3xl">
                     Fred Sauer
-                  </p>
-                </div>
-                <div className="bg-black px-4 py-4 sm:px-5">
-                  <p className="font-display text-3xl leading-none text-[#ff003c]">
-                    100+
-                  </p>
-                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.28em] text-white/42">
-                    projetos concluídos
                   </p>
                 </div>
               </div>
@@ -73,7 +70,7 @@ export function AboutSection() {
                   </p>
                 </div>
 
-                <div className="mt-8 grid gap-px bg-white/10 sm:max-w-2xl sm:grid-cols-2">
+                {/* <div className="mt-8 grid gap-px bg-white/10 sm:max-w-2xl sm:grid-cols-2">
                   <div className="bg-black px-5 py-5 sm:px-6">
                     <p className="text-[0.68rem] uppercase tracking-[0.3em] text-white/36">
                       abordagem
@@ -88,11 +85,11 @@ export function AboutSection() {
                       estética e conexão real com a pessoa retratada nela.
                     </p>
                   </div>
-                </div>
+                </div> */}
 
-                <p className="mt-8 text-[0.72rem] uppercase tracking-[0.34em] text-white/34">
+                {/* <p className="mt-8 text-[0.72rem] uppercase tracking-[0.34em] text-white/34">
                   Algumas histórias precisam ser eternas.
-                </p>
+                </p> */}
               </div>
             </div>
           </div>

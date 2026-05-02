@@ -1,3 +1,5 @@
+import { defaultWhatsAppHref } from "../whatsapp";
+
 export function QuoteCtaSection() {
   return (
     <section className="section-frame px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
@@ -22,8 +24,9 @@ export function QuoteCtaSection() {
 
             <div className="flex flex-col gap-4 sm:flex-row lg:flex-col">
               <a
-                href="https://api.whatsapp.com/send/?phone=5521971795647&text=Oi%2C+vim+pelo+site+e+gostaria+de+realizar+um+or%C3%A7amento&type=phone_number&app_absent=0"
+                href={defaultWhatsAppHref}
                 target="_blank"
+                rel="noreferrer"
                 className="brutal-button brutal-button-primary min-w-[15rem] shadow-[0_0_30px_rgba(255,0,60,0.2)]"
               >
                 FAZER ORÇAMENTO
@@ -32,7 +35,7 @@ export function QuoteCtaSection() {
                 href="#contato"
                 className="brutal-button brutal-button-secondary"
               >
-                VER CONTATOS
+                PREENCHER BRIEFING
               </a>
             </div>
           </div>

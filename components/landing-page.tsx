@@ -82,8 +82,8 @@ export function LandingPage() {
       <ProcessSection />
       <FaqSection />
       <TattooCareSection />
-      <ContactSection />
       <LocationSection />
+      <ContactSection />
       <FooterSection />
       <FloatingWhatsAppButton visible={showFloatingWhatsApp} />
     </main>

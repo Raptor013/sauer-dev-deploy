@@ -1,20 +1,18 @@
 "use client";
 
+import { defaultWhatsAppHref } from "../whatsapp";
 import styles from "./FloatingWhatsAppButton.module.css";
 
 type FloatingWhatsAppButtonProps = {
   visible: boolean;
 };
 
-const whatsappHref =
-  "https://api.whatsapp.com/send/?phone=5521971795647&text=Oi%2C+vim+pelo+site+e+gostaria+de+realizar+um+or%C3%A7amento&type=phone_number&app_absent=0";
-
 export function FloatingWhatsAppButton({
   visible,
 }: FloatingWhatsAppButtonProps) {
   return (
     <a
-      href={whatsappHref}
+      href={defaultWhatsAppHref}
       target="_blank"
       rel="noreferrer"
       aria-label="Falar no WhatsApp"
@@ -26,16 +24,16 @@ export function FloatingWhatsAppButton({
     >
       <span className="relative flex h-14 w-14 items-center justify-center sm:h-16 sm:w-16">
         <span
-          className={`${styles.whatsappRing} absolute inset-[-8px] rounded-full border border-[#ff003c]/50`}
+          className={`${styles.whatsappRing} absolute inset-[-8px] rounded-full border border-[#EF0020]/50`}
         />
         <span
-          className={`${styles.whatsappRing} ${styles.whatsappRingDelay} absolute inset-[-14px] rounded-full border border-[#ff003c]/30`}
+          className={`${styles.whatsappRing} ${styles.whatsappRingDelay} absolute inset-[-14px] rounded-full border border-[#EF0020]/30`}
         />
 
         <span
-          className={`${styles.whatsappFloat} relative flex h-full w-full items-center justify-center rounded-full border border-[#ff003c]/65 bg-black/88 text-[#ff003c] shadow-[0_0_18px_rgba(255,0,60,0.42),0_0_36px_rgba(255,0,60,0.2)] backdrop-blur-sm`}
+          className={`${styles.whatsappFloat} relative flex h-full w-full items-center justify-center rounded-full border border-[#EF0020]/65 bg-black/88 text-[#EF0020] shadow-[0_0_18px_rgba(255,0,60,0.42),0_0_36px_rgba(255,0,60,0.2)] backdrop-blur-sm`}
         >
-          <span className="absolute inset-[3px] rounded-full border border-[#ff003c]/35 shadow-[inset_0_0_12px_rgba(255,0,60,0.3)]" />
+          <span className="absolute inset-[3px] rounded-full border border-[#EF0020]/35 shadow-[inset_0_0_12px_rgba(255,0,60,0.3)]" />
           <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,0,60,0.24),transparent_68%)]" />
           <svg
             aria-hidden="true"

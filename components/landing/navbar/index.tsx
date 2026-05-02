@@ -37,9 +37,9 @@ export const Navbar = () => {
   return (
     <nav className="relative z-20 overflow-hidden bg-[#050505]/92 px-4 py-3 backdrop-blur-md sm:px-6 lg:px-8">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-y-0 left-0 w-40 bg-[radial-gradient(circle_at_left_center,rgba(255,0,76,0.22),transparent_72%)]" />
-        <div className="absolute inset-y-0 right-0 w-48 bg-[radial-gradient(circle_at_right_center,rgba(255,0,76,0.22),transparent_72%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,0,60,0.06)_0%,rgba(0,0,0,0)_16%,rgba(0,0,0,0)_84%,rgba(255,0,60,0.06)_100%)]" />
+        <div className="hidden md:inline absolute inset-y-0 left-0 w-40 bg-[radial-gradient(circle_at_left_center,rgba(255,0,76,0.22),transparent_72%)]" />
+        <div className="hidden md:inline absolute inset-y-0 right-0 w-48 bg-[radial-gradient(circle_at_right_center,rgba(255,0,76,0.22),transparent_72%)]" />
+        <div className="hidden md:inline absolute inset-0 bg-[linear-gradient(90deg,rgba(255,0,60,0.06)_0%,rgba(0,0,0,0)_16%,rgba(0,0,0,0)_84%,rgba(255,0,60,0.06)_100%)]" />
       </div>
 
       {/* Desktop Navigation */}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { defaultWhatsAppHref } from "../whatsapp";
 
 export function FooterSection() {
   return (
@@ -9,12 +10,14 @@ export function FooterSection() {
             href="https://instagram.com/sauer.tattoos"
             className="transition-colors hover:text-white"
             target="_blank"
+            rel="noreferrer"
           >
             Instagram
           </a>
           <a
-            href="https://api.whatsapp.com/send/?phone=5521971795647&text=Oi%2C+vim+pelo+site+e+gostaria+de+realizar+um+or%C3%A7amento&type=phone_number&app_absent=0"
+            href={defaultWhatsAppHref}
             target="_blank"
+            rel="noreferrer"
             className="transition-colors hover:text-white"
           >
             WhatsApp

@@ -5,7 +5,7 @@
   --foreground: #ffffff;
   --muted: #8f8f95;
   --panel: #050505;
-  --crimson: #ff003c;
+  --crimson: #ef0020;
 }
 
 @theme inline {
@@ -81,14 +81,14 @@ a {
   position: relative;
 }
 
-.section-frame::after {
+/* .section-frame::after {
   content: "";
   position: absolute;
   inset-inline: 0;
   bottom: 0;
   height: 1px;
   background: rgba(255, 255, 255, 0.08);
-}
+} */
 
 .section-kicker {
   font-size: 0.72rem;
@@ -122,12 +122,12 @@ a {
 
 .brutal-button-primary {
   background: var(--crimson);
-  border-color: rgba(255, 0, 60, 0.9);
+  border-color: #ef0020;
   box-shadow: 0 0 22px rgba(255, 0, 60, 0.28);
 }
 
 .brutal-button-primary:hover {
-  background: #ff1a50;
+  background: #ff0224;
   box-shadow: 0 0 28px rgba(255, 0, 60, 0.48);
 }
 

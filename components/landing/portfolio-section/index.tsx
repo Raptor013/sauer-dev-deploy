@@ -1,5 +1,6 @@
 "use client";
 
+import { montserrat } from "@/app/fonts";
 import { useEffect, useState } from "react";
 import { portfolioItems } from "../data";
 import styles from "./PortfolioSection.module.css";
@@ -73,10 +74,10 @@ function PortfolioCard({
         style={getArtworkStyle(item)}
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.18)_42%,rgba(0,0,0,0.98)_100%)]" />
-      <div className="absolute inset-0 bg-[#ff003c]/0 transition-colors duration-500 group-hover:bg-[#ff003c]/18" />
+      <div className="absolute inset-0 bg-[#EF0020]/0 transition-colors duration-500 group-hover:bg-[#EF0020]/18" />
       <div className={`relative ${bodyClassName ?? "h-full min-h-[22rem]"}`} />
       <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6">
-        <div className="bg-black/45 px-4 py-3 backdrop-blur-[1px] sm:bg-transparent sm:px-0 sm:py-0">
+        <div className="px-4 py-3 backdrop-blur-[1px] sm:bg-transparent sm:px-0 sm:py-0">
           {item.isAwarded && item.award ? (
             <AwardDetails award={item.award} />
           ) : null}
@@ -192,7 +193,7 @@ export function PortfolioSection() {
           <button
             type="button"
             onClick={() => setShowMore((current) => !current)}
-            className="brutal-button brutal-button-primary min-w-[14rem] cursor-pointer"
+            className={`${montserrat.className} mt-8 inline-flex min-h-14 w-full max-w-[16rem] items-center justify-center border border-[#EF0020] bg-black/36 px-6 text-[1rem] font-normal uppercase tracking-[0.28em] text-[#FFEAEA] shadow-[0_0_0_1px_rgba(255,0,60,0.08)] backdrop-blur-[2px] transition duration-300 hover:-translate-y-0.5 hover:border-[#ff0037] hover:bg-[#130204]/92 hover:shadow-[0_0_24px_rgba(255,0,60,0.22)] sm:max-w-68`}
           >
             {showMore ? "VER MENOS" : "VER MAIS"}
           </button>
