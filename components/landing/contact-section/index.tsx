@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-  type FormEvent,
-} from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { createWhatsAppHref, defaultWhatsAppHref } from "../whatsapp";
 
 const experienceOptions = [
@@ -75,15 +69,25 @@ const processItems = [
 const briefingStorageKey = "sauer-tattoos-briefing";
 
 const inputClassName =
-  "w-full border border-white/14 bg-black/70 px-4 py-3 text-sm text-white outline-none transition placeholder:text-white/28 focus:border-[#EF0020] focus:bg-[#0b0b0b] focus:shadow-[0_0_0_1px_rgba(239,0,32,0.28),0_0_24px_rgba(239,0,32,0.16)]";
+  "w-full border border-white/14 bg-black/70 px-3.5 py-2.5 text-[0.95rem] text-white outline-none transition placeholder:text-white/28 focus:border-[#EF0020] focus:bg-[#0b0b0b] focus:shadow-[0_0_0_1px_rgba(239,0,32,0.28),0_0_24px_rgba(239,0,32,0.16)] sm:px-4 sm:py-3 sm:text-sm";
 
-const choiceClassName =
-  "flex min-h-full items-center border border-white/12 bg-black/72 px-4 py-4 text-sm leading-6 text-white/72 transition duration-200 peer-checked:border-[#EF0020] peer-checked:bg-[linear-gradient(180deg,rgba(239,0,32,0.18),rgba(239,0,32,0.05))] peer-checked:text-white peer-checked:shadow-[0_0_0_1px_rgba(239,0,32,0.26),0_0_26px_rgba(239,0,32,0.12)] peer-focus-visible:border-[#EF0020] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#EF0020]";
+const choiceBaseClassName =
+  "flex w-full min-h-[3.25rem] items-center border px-3.5 py-3 text-left text-[0.92rem] leading-5 transition duration-200 focus-visible:border-[#EF0020] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#EF0020] sm:min-h-[3.75rem] sm:px-4 sm:py-4 sm:text-sm sm:leading-6";
+const choiceSelectedClassName =
+  "border-[#EF0020] bg-[linear-gradient(180deg,rgba(239,0,32,0.18),rgba(239,0,32,0.05))] text-white shadow-[0_0_0_1px_rgba(239,0,32,0.26),0_0_20px_rgba(239,0,32,0.10)]";
+const choiceIdleClassName =
+  "border-white/12 bg-black/72 text-white/72 hover:border-white/22 hover:text-white";
 
 const errorClassName = "text-xs leading-5 text-[#ff9aa7]";
+const groupFocusClassName =
+  "focus:outline-none focus:ring-1 focus:ring-[#EF0020]/40";
+const footerButtonBaseClassName =
+  "inline-flex min-h-10 items-center justify-center border px-4 py-2 text-[0.72rem] font-medium tracking-[0.18em] transition disabled:cursor-not-allowed disabled:opacity-50 sm:min-h-11 sm:px-5";
+const footerPrimaryButtonClassName = `${footerButtonBaseClassName} border-[#EF0020] bg-[#EF0020] text-white hover:bg-[#ff1737]`;
+const footerSecondaryButtonClassName = `${footerButtonBaseClassName} border-white/12 bg-transparent text-white/80 hover:border-white/24 hover:text-white`;
 
 const focusableSelector =
-  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]):not([type="hidden"]):not([type="radio"]):not([type="checkbox"]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 type BriefingFormValues = {
   fullName: string;
@@ -283,17 +287,19 @@ function getFieldsForStep(stepIndex: number): BriefingFormField[] {
   return ["commitment"];
 }
 
+function isGroupField(field: BriefingFormField) {
+  return (
+    field === "experience" ||
+    field === "bodyArea" ||
+    field === "timeline" ||
+    field === "budget" ||
+    field === "commitment"
+  );
+}
+
 function getFieldSelector(field: BriefingFormField) {
-  if (field === "experience" || field === "bodyArea") {
-    return `input[name="${field}"]`;
-  }
-
-  if (field === "timeline" || field === "budget") {
-    return `input[name="${field}"]`;
-  }
-
-  if (field === "commitment") {
-    return 'input[name="commitment"]';
+  if (isGroupField(field)) {
+    return `[data-field-root="${field}"]`;
   }
 
   return `#${field}`;
@@ -342,17 +348,6 @@ function buildWhatsAppMessage(values: BriefingFormValues) {
   ].join("\n");
 }
 
-function isFocusableField(
-  element: Element | null,
-): element is HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement {
-  return Boolean(
-    element &&
-    (element instanceof HTMLInputElement ||
-      element instanceof HTMLTextAreaElement ||
-      element instanceof HTMLSelectElement),
-  );
-}
-
 function FieldError({ id, message }: { id?: string; message?: string }) {
   if (!message) {
     return null;
@@ -377,24 +372,34 @@ function ChoiceFieldset({
   const errorId = `${name}-error`;
 
   return (
-    <fieldset data-field-root={name} className="space-y-3">
-      <legend className="text-[0.72rem] uppercase tracking-[0.3em] text-white/46">
+    <fieldset
+      data-field-root={name}
+      tabIndex={-1}
+      className={`space-y-3 ${groupFocusClassName}`}
+    >
+      <legend className="text-[0.68rem] uppercase tracking-[0.28em] text-white/46 sm:text-[0.72rem] sm:tracking-[0.3em]">
         {legend}
       </legend>
-      <div className={`grid gap-3 ${columns}`}>
+      <div
+        role="radiogroup"
+        aria-describedby={error ? errorId : undefined}
+        className={`grid gap-2.5 ${columns}`}
+      >
         {options.map((option) => (
-          <label key={option} className="block cursor-pointer">
-            <input
-              type="radio"
-              name={name}
-              value={option}
-              checked={value === option}
-              onChange={(event) => onChange(name, event.target.value)}
-              aria-describedby={error ? errorId : undefined}
-              className="peer sr-only"
-            />
-            <span className={choiceClassName}>{option}</span>
-          </label>
+          <button
+            key={option}
+            type="button"
+            role="radio"
+            aria-checked={value === option}
+            onClick={() => onChange(name, option)}
+            className={`${choiceBaseClassName} ${
+              value === option
+                ? choiceSelectedClassName
+                : choiceIdleClassName
+            }`}
+          >
+            {option}
+          </button>
         ))}
       </div>
       <FieldError id={errorId} message={error} />
@@ -404,8 +409,8 @@ function ChoiceFieldset({
 
 function SummaryItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="space-y-2 border border-white/8 bg-black/45 p-4">
-      <p className="text-[0.68rem] uppercase tracking-[0.28em] text-white/36">
+    <div className="space-y-2 border border-white/8 bg-black/45 p-3.5 sm:p-4">
+      <p className="text-[0.66rem] uppercase tracking-[0.24em] text-white/36 sm:text-[0.68rem] sm:tracking-[0.28em]">
         {label}
       </p>
       <p className="break-words text-sm leading-6 text-white/78">{value}</p>
@@ -428,10 +433,6 @@ export function ContactSection({
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [showStepErrors, setShowStepErrors] = useState(false);
-  const [mobileDialogHeight, setMobileDialogHeight] = useState<number | null>(
-    null,
-  );
-  const [isMobileKeyboardOpen, setIsMobileKeyboardOpen] = useState(false);
   const [hasRestoredState, setHasRestoredState] = useState(false);
   const [formValues, setFormValues] =
     useState<BriefingFormValues>(initialFormValues);
@@ -443,11 +444,6 @@ export function ContactSection({
     formValues.bodyArea === "Outro"
       ? formValues.bodyAreaOther.trim()
       : formValues.bodyArea;
-  const dialogStyle = mobileDialogHeight
-    ? ({
-        "--dialog-mobile-height": `${mobileDialogHeight}px`,
-      } as CSSProperties)
-    : undefined;
 
   const focusField = (field: BriefingFormField) => {
     const dialogElement = dialogRef.current;
@@ -460,12 +456,32 @@ export function ContactSection({
     const fieldRoot = dialogElement.querySelector<HTMLElement>(
       `[data-field-root="${field}"]`,
     );
-    const focusTarget =
-      fieldRoot?.querySelector<HTMLElement>(getFieldSelector(field)) ??
-      dialogElement.querySelector<HTMLElement>(getFieldSelector(field));
-    const scrollTarget = fieldRoot ?? focusTarget;
 
-    if (!focusTarget || !scrollTarget) {
+    if (isGroupField(field)) {
+      if (!fieldRoot) {
+        pendingFocusFieldRef.current = field;
+        return;
+      }
+
+      pendingFocusFieldRef.current = null;
+
+      window.requestAnimationFrame(() => {
+        fieldRoot.focus({ preventScroll: true });
+        fieldRoot.scrollIntoView({
+          block: "nearest",
+          inline: "nearest",
+          behavior: "auto",
+        });
+      });
+
+      return;
+    }
+
+    const focusTarget = dialogElement.querySelector<HTMLElement>(
+      getFieldSelector(field),
+    );
+
+    if (!focusTarget) {
       pendingFocusFieldRef.current = field;
       return;
     }
@@ -474,10 +490,10 @@ export function ContactSection({
 
     window.requestAnimationFrame(() => {
       focusTarget.focus({ preventScroll: true });
-      scrollTarget.scrollIntoView({
-        block: "center",
+      focusTarget.scrollIntoView({
+        block: "nearest",
         inline: "nearest",
-        behavior: "smooth",
+        behavior: "auto",
       });
     });
   };
@@ -495,7 +511,6 @@ export function ContactSection({
   const closeDialog = (restoreFocus = true) => {
     setIsDialogOpen(false);
     setShowStepErrors(false);
-    setIsMobileKeyboardOpen(false);
 
     if (restoreFocus) {
       window.requestAnimationFrame(() => {
@@ -565,14 +580,12 @@ export function ContactSection({
     const body = document.body;
     const previousHtmlOverflow = html.style.overflow;
     const previousBodyOverflow = body.style.overflow;
-    const previousBodyTouchAction = body.style.touchAction;
+    const previousBodyPaddingRight = body.style.paddingRight;
     const scrollbarCompensation =
       window.innerWidth - document.documentElement.clientWidth;
-    const previousBodyPaddingRight = body.style.paddingRight;
 
     html.style.overflow = "hidden";
     body.style.overflow = "hidden";
-    body.style.touchAction = "none";
 
     if (scrollbarCompensation > 0) {
       body.style.paddingRight = `${scrollbarCompensation}px`;
@@ -581,7 +594,6 @@ export function ContactSection({
     return () => {
       html.style.overflow = previousHtmlOverflow;
       body.style.overflow = previousBodyOverflow;
-      body.style.touchAction = previousBodyTouchAction;
       body.style.paddingRight = previousBodyPaddingRight;
     };
   }, [isDialogOpen]);
@@ -659,89 +671,6 @@ export function ContactSection({
       return;
     }
 
-    const updateMobileDialogHeight = () => {
-      const viewport = window.visualViewport;
-      const nextHeight = viewport?.height ?? window.innerHeight;
-      const keyboardHeight = window.innerHeight - nextHeight;
-
-      setMobileDialogHeight(Math.round(nextHeight));
-      setIsMobileKeyboardOpen(window.innerWidth < 1024 && keyboardHeight > 160);
-    };
-
-    updateMobileDialogHeight();
-
-    const viewport = window.visualViewport;
-    window.addEventListener("resize", updateMobileDialogHeight);
-    viewport?.addEventListener("resize", updateMobileDialogHeight);
-    viewport?.addEventListener("scroll", updateMobileDialogHeight);
-
-    return () => {
-      window.removeEventListener("resize", updateMobileDialogHeight);
-      viewport?.removeEventListener("resize", updateMobileDialogHeight);
-      viewport?.removeEventListener("scroll", updateMobileDialogHeight);
-    };
-  }, [isDialogOpen]);
-
-  useEffect(() => {
-    if (!isDialogOpen) {
-      return;
-    }
-
-    const scrollFocusedFieldIntoView = (target?: HTMLElement | null) => {
-      const contentElement = contentRef.current;
-      const fieldTarget = target ?? document.activeElement;
-
-      if (!contentElement || !isFocusableField(fieldTarget)) {
-        return;
-      }
-
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => {
-          fieldTarget.scrollIntoView({
-            block: "center",
-            inline: "nearest",
-            behavior: "smooth",
-          });
-        });
-      });
-    };
-
-    const handleFocusIn = (event: FocusEvent) => {
-      const target = event.target;
-
-      if (!(target instanceof HTMLElement)) {
-        return;
-      }
-
-      scrollFocusedFieldIntoView(target);
-    };
-
-    const dialogElement = dialogRef.current;
-    const viewport = window.visualViewport;
-    dialogElement?.addEventListener("focusin", handleFocusIn);
-
-    const handleViewportShift = () => {
-      const activeElement = document.activeElement;
-      scrollFocusedFieldIntoView(
-        activeElement instanceof HTMLElement ? activeElement : null,
-      );
-    };
-
-    viewport?.addEventListener("resize", handleViewportShift);
-    viewport?.addEventListener("scroll", handleViewportShift);
-
-    return () => {
-      dialogElement?.removeEventListener("focusin", handleFocusIn);
-      viewport?.removeEventListener("resize", handleViewportShift);
-      viewport?.removeEventListener("scroll", handleViewportShift);
-    };
-  }, [isDialogOpen, currentStep]);
-
-  useEffect(() => {
-    if (!isDialogOpen) {
-      return;
-    }
-
     contentRef.current?.scrollTo({ top: 0, behavior: "auto" });
 
     if (pendingFocusFieldRef.current) {
@@ -750,13 +679,7 @@ export function ContactSection({
   }, [currentStep, isDialogOpen]);
 
   useEffect(() => {
-    if (
-      isDialogOpen &&
-      currentStep === 1 &&
-      formValues.bodyArea === "Outro" &&
-      document.activeElement instanceof HTMLInputElement &&
-      document.activeElement.name === "bodyArea"
-    ) {
+    if (isDialogOpen && currentStep === 1 && formValues.bodyArea === "Outro") {
       pendingFocusFieldRef.current = "bodyAreaOther";
       focusField("bodyAreaOther");
     }
@@ -865,7 +788,6 @@ export function ContactSection({
     const popup = window.open(whatsappHref, "_blank", "noopener,noreferrer");
 
     setIsDialogOpen(false);
-    setIsMobileKeyboardOpen(false);
     resetBriefing();
 
     if (!popup) {
@@ -988,89 +910,75 @@ export function ContactSection({
               aria-labelledby="briefing-dialog-title"
               ref={dialogRef}
               tabIndex={-1}
-              style={dialogStyle}
-              className="relative flex h-[var(--dialog-mobile-height,100dvh)] w-full max-w-6xl flex-col overflow-hidden border border-white/10 bg-[#050505] shadow-[0_0_60px_rgba(0,0,0,0.55)] sm:h-auto sm:max-h-[92dvh] sm:rounded-[1.6rem]"
+              className="relative flex h-[100svh] w-full max-w-6xl flex-col overflow-hidden border border-white/10 bg-[#050505] shadow-[0_0_60px_rgba(0,0,0,0.55)] sm:h-auto sm:max-h-[92dvh] sm:rounded-[1.6rem]"
             >
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,0,32,0.18),transparent_18%),radial-gradient(circle_at_bottom_right,rgba(239,0,32,0.12),transparent_24%)]" />
 
-              <div className="relative flex items-center justify-between border-b border-white/10 px-5 py-4 sm:px-7">
-                <div className="min-w-0">
-                  <h3
-                    id="briefing-dialog-title"
-                    className={`font-display leading-none tracking-[-0.05em] text-white sm:text-3xl ${
-                      isMobileKeyboardOpen ? "text-xl" : "text-2xl"
-                    }`}
-                  >
-                    {!isMobileKeyboardOpen ? (
-                      <span className="mb-2 block text-[0.68rem] uppercase tracking-[0.3em] text-[#ff8797]">
-                        briefing guiado
-                      </span>
-                    ) : null}
-                    {currentStepData.title}
-                  </h3>
-                </div>
+              <div className="relative shrink-0 border-b border-white/10 px-4 py-3 sm:px-7 sm:py-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 space-y-2">
+                    <span className="block text-[0.66rem] uppercase tracking-[0.26em] text-[#ff8797] sm:text-[0.68rem] sm:tracking-[0.3em]">
+                      briefing guiado
+                    </span>
+                    <h3
+                      id="briefing-dialog-title"
+                      className="font-display text-[1.35rem] leading-none tracking-[-0.05em] text-white sm:text-3xl"
+                    >
+                      {currentStepData.title}
+                    </h3>
+                    <p className="max-w-2xl text-xs leading-5 text-white/54 sm:text-sm sm:leading-6">
+                      {currentStepData.description}
+                    </p>
+                  </div>
 
-                <button
-                  type="button"
-                  onClick={() => closeDialog()}
-                  className="ml-4 inline-flex h-11 w-11 shrink-0 items-center justify-center border border-white/12 bg-black/50 text-sm tracking-[0.18em] text-white/68 transition hover:border-[#EF0020] hover:text-white"
-                  aria-label="Fechar briefing"
-                >
-                  X
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => closeDialog()}
+                    className="inline-flex h-10 w-10 shrink-0 items-center justify-center border border-white/12 bg-black/50 text-xs tracking-[0.18em] text-white/68 transition hover:border-[#EF0020] hover:text-white sm:h-11 sm:w-11"
+                    aria-label="Fechar briefing"
+                  >
+                    X
+                  </button>
+                </div>
               </div>
 
               <div className="relative flex min-h-0 flex-1 flex-col lg:grid lg:grid-cols-[0.84fr_1.16fr]">
-                <div
-                  className={`border-b border-white/10 bg-black/45 px-5 py-4 sm:px-7 lg:hidden ${
-                    isMobileKeyboardOpen ? "hidden" : "block"
-                  }`}
-                >
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex items-center justify-between gap-4">
-                        <p className="text-[0.68rem] uppercase tracking-[0.3em] text-white/42">
-                          progresso
-                        </p>
-                        <p className="text-sm text-white/58">
-                          {currentStep + 1}/{steps.length}
-                        </p>
-                      </div>
-                      <div className="mt-3 h-2 overflow-hidden bg-white/8">
-                        <div
-                          className="h-full bg-[linear-gradient(90deg,#EF0020_0%,#ff7a8a_100%)] transition-[width] duration-300"
-                          style={{ width: `${progressPercent}%` }}
-                        />
-                      </div>
-                    </div>
+                <div className="shrink-0 border-b border-white/10 bg-black/45 px-4 py-3 lg:hidden">
+                  <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.22em] text-white/46">
+                    <span>
+                      Etapa {currentStep + 1} de {steps.length}
+                    </span>
+                    <span>{Math.round(progressPercent)}%</span>
+                  </div>
+                  <div className="mt-3 h-1.5 overflow-hidden bg-white/8">
+                    <div
+                      className="h-full bg-[linear-gradient(90deg,#EF0020_0%,#ff7a8a_100%)] transition-[width] duration-300"
+                      style={{ width: `${progressPercent}%` }}
+                    />
+                  </div>
+                  <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+                    {steps.map((step, index) => {
+                      const isCurrent = index === currentStep;
+                      const isCompleted = index < currentStep;
 
-                    <label className="block space-y-3">
-                      <span className="text-[0.68rem] uppercase tracking-[0.3em] text-[#ff8797]">
-                        etapa atual
-                      </span>
-                      <select
-                        value={String(currentStep)}
-                        onChange={(event) =>
-                          handleStepSelect(Number(event.target.value))
-                        }
-                        className={`${inputClassName} appearance-none pr-12`}
-                      >
-                        {steps.map((step, index) => (
-                          <option key={step.label} value={index}>
-                            {`0${index + 1} - ${step.label}`}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-
-                    <div className="hidden lg:block space-y-3 border border-white/8 bg-white/[0.02] p-4">
-                      <p className="text-[0.68rem] uppercase tracking-[0.3em] text-[#ff8797]">
-                        nesta etapa
-                      </p>
-                      <p className="text-sm leading-7 text-white/64">
-                        {currentStepData.description}
-                      </p>
-                    </div>
+                      return (
+                        <button
+                          key={step.label}
+                          type="button"
+                          onClick={() => handleStepSelect(index)}
+                          className={`shrink-0 border px-3 py-2 text-[0.68rem] uppercase tracking-[0.18em] transition ${
+                            isCurrent
+                              ? "border-[#EF0020]/45 bg-[#EF0020]/12 text-white"
+                              : isCompleted
+                                ? "border-white/14 bg-white/[0.04] text-white/72"
+                                : "border-white/8 bg-black/35 text-white/42"
+                          }`}
+                          aria-current={isCurrent ? "step" : undefined}
+                        >
+                          {step.label}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
@@ -1099,9 +1007,11 @@ export function ContactSection({
                         const isCompleted = index < currentStep;
 
                         return (
-                          <div
+                          <button
                             key={step.label}
-                            className={`border px-4 py-4 transition ${
+                            type="button"
+                            onClick={() => handleStepSelect(index)}
+                            className={`border px-4 py-4 text-left transition ${
                               isCurrent
                                 ? "border-[#EF0020]/45 bg-[linear-gradient(180deg,rgba(239,0,32,0.16),rgba(239,0,32,0.04))]"
                                 : isCompleted
@@ -1134,7 +1044,7 @@ export function ContactSection({
                                 {step.label}
                               </p>
                             </div>
-                          </div>
+                          </button>
                         );
                       })}
                     </div>
@@ -1167,14 +1077,14 @@ export function ContactSection({
                   <div
                     ref={contentRef}
                     tabIndex={-1}
-                    className="dialog-scrollbar min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 pb-10 focus:outline-none sm:px-7 sm:py-7"
+                    className="dialog-scrollbar min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 pb-6 focus:outline-none sm:px-7 sm:py-7 sm:pb-8"
                   >
                     {currentStep === 0 ? (
-                      <div className="space-y-6">
+                      <div className="space-y-5 sm:space-y-6">
                         <div data-field-root="fullName" className="space-y-3">
                           <label
                             htmlFor="fullName"
-                            className="text-[0.72rem] uppercase tracking-[0.3em] text-white/46"
+                            className="text-[0.68rem] uppercase tracking-[0.28em] text-white/46 sm:text-[0.72rem] sm:tracking-[0.3em]"
                           >
                             Nome completo
                           </label>
@@ -1215,7 +1125,7 @@ export function ContactSection({
                           <div data-field-root="whatsapp" className="space-y-3">
                             <label
                               htmlFor="whatsapp"
-                              className="text-[0.72rem] uppercase tracking-[0.3em] text-white/46"
+                              className="text-[0.68rem] uppercase tracking-[0.28em] text-white/46 sm:text-[0.72rem] sm:tracking-[0.3em]"
                             >
                               WhatsApp
                             </label>
@@ -1258,7 +1168,7 @@ export function ContactSection({
                           <div data-field-root="email" className="space-y-3">
                             <label
                               htmlFor="email"
-                              className="text-[0.72rem] uppercase tracking-[0.3em] text-white/46"
+                              className="text-[0.68rem] uppercase tracking-[0.28em] text-white/46 sm:text-[0.72rem] sm:tracking-[0.3em]"
                             >
                               E-mail
                             </label>
@@ -1297,7 +1207,7 @@ export function ContactSection({
                     ) : null}
 
                     {currentStep === 1 ? (
-                      <div className="space-y-6">
+                      <div className="space-y-5 sm:space-y-6">
                         <ChoiceFieldset
                           legend="Você já tem tatuagens?"
                           name="experience"
@@ -1314,14 +1224,14 @@ export function ContactSection({
                         <div data-field-root="idea" className="space-y-3">
                           <label
                             htmlFor="idea"
-                            className="text-[0.72rem] uppercase tracking-[0.3em] text-white/46"
+                            className="text-[0.68rem] uppercase tracking-[0.28em] text-white/46 sm:text-[0.72rem] sm:tracking-[0.3em]"
                           >
                             Descreva a ideia da sua tatuagem
                           </label>
                           <textarea
                             id="idea"
                             name="idea"
-                            rows={7}
+                            rows={6}
                             maxLength={1200}
                             enterKeyHint="done"
                             value={formValues.idea}
@@ -1337,7 +1247,7 @@ export function ContactSection({
                                 ? "idea-error"
                                 : undefined
                             }
-                            className={`${inputClassName} min-h-[11rem] resize-y`}
+                            className={`${inputClassName} min-h-[9rem] resize-none sm:min-h-[11rem]`}
                             placeholder="Explique conceito, referências, significado, tamanho aproximado e tudo o que puder compartilhar."
                           />
                           <FieldError
@@ -1370,7 +1280,7 @@ export function ContactSection({
                             >
                               <label
                                 htmlFor="bodyAreaOther"
-                                className="text-[0.72rem] uppercase tracking-[0.3em] text-white/46"
+                                className="text-[0.68rem] uppercase tracking-[0.28em] text-white/46 sm:text-[0.72rem] sm:tracking-[0.3em]"
                               >
                                 Qual área do corpo?
                               </label>
@@ -1414,7 +1324,7 @@ export function ContactSection({
                     ) : null}
 
                     {currentStep === 2 ? (
-                      <div className="space-y-6">
+                      <div className="space-y-5 sm:space-y-6">
                         <ChoiceFieldset
                           legend="Quando você pretende fazer sua tatuagem?"
                           name="timeline"
@@ -1439,8 +1349,8 @@ export function ContactSection({
                           }
                         />
 
-                        <div className="border border-white/8 bg-white/[0.02] p-4">
-                          <p className="text-[0.68rem] uppercase tracking-[0.3em] text-white/40">
+                        <div className="border border-white/8 bg-white/[0.02] p-3.5 sm:p-4">
+                          <p className="text-[0.66rem] uppercase tracking-[0.24em] text-white/40 sm:text-[0.68rem] sm:tracking-[0.3em]">
                             orientação
                           </p>
                           <p className="mt-3 text-sm leading-7 text-white/60">
@@ -1453,8 +1363,8 @@ export function ContactSection({
                     ) : null}
 
                     {currentStep === 3 ? (
-                      <div className="space-y-6">
-                        <div className="grid gap-4 md:grid-cols-2">
+                      <div className="space-y-5 sm:space-y-6">
+                        <div className="grid gap-3 md:grid-cols-2 sm:gap-4">
                           <SummaryItem
                             label="Nome"
                             value={formValues.fullName.trim()}
@@ -1485,8 +1395,8 @@ export function ContactSection({
                           />
                         </div>
 
-                        <div className="space-y-2 border border-white/8 bg-black/45 p-4">
-                          <p className="text-[0.68rem] uppercase tracking-[0.3em] text-white/40">
+                        <div className="space-y-2 border border-white/8 bg-black/45 p-3.5 sm:p-4">
+                          <p className="text-[0.66rem] uppercase tracking-[0.24em] text-white/40 sm:text-[0.68rem] sm:tracking-[0.3em]">
                             Ideia do projeto
                           </p>
                           <p className="whitespace-pre-wrap break-words text-sm leading-7 text-white/72">
@@ -1496,38 +1406,40 @@ export function ContactSection({
 
                         <fieldset
                           data-field-root="commitment"
-                          className="space-y-3"
+                          tabIndex={-1}
+                          className={`space-y-3 ${groupFocusClassName}`}
                         >
-                          <legend className="text-[0.72rem] uppercase tracking-[0.3em] text-white/46">
+                          <legend className="text-[0.68rem] uppercase tracking-[0.28em] text-white/46 sm:text-[0.72rem] sm:tracking-[0.3em]">
                             Confirmação final
                           </legend>
-                          <label className="block cursor-pointer">
-                            <input
-                              type="checkbox"
-                              name="commitment"
-                              checked={formValues.commitment}
-                              onChange={(event) =>
-                                setFormValues((current) => ({
-                                  ...current,
-                                  commitment: event.target.checked,
-                                }))
-                              }
-                              aria-invalid={Boolean(
-                                showStepErrors && currentErrors.commitment,
-                              )}
-                              aria-describedby={
-                                showStepErrors && currentErrors.commitment
-                                  ? "commitment-error"
-                                  : undefined
-                              }
-                              className="peer sr-only"
-                            />
-                            <span className={choiceClassName}>
-                              Estou ciente de que se trata de um projeto
-                              personalizado, sujeito a análise prévia e
-                              disponibilidade de agenda.
-                            </span>
-                          </label>
+                          <button
+                            type="button"
+                            role="checkbox"
+                            aria-checked={formValues.commitment}
+                            onClick={() =>
+                              setFormValues((current) => ({
+                                ...current,
+                                commitment: !current.commitment,
+                              }))
+                            }
+                            aria-invalid={Boolean(
+                              showStepErrors && currentErrors.commitment,
+                            )}
+                            aria-describedby={
+                              showStepErrors && currentErrors.commitment
+                                ? "commitment-error"
+                                : undefined
+                            }
+                            className={`${choiceBaseClassName} ${
+                              formValues.commitment
+                                ? choiceSelectedClassName
+                                : choiceIdleClassName
+                            }`}
+                          >
+                            Estou ciente de que se trata de um projeto
+                            personalizado, sujeito a análise prévia e
+                            disponibilidade de agenda.
+                          </button>
                           <FieldError
                             id="commitment-error"
                             message={
@@ -1539,48 +1451,42 @@ export function ContactSection({
                         </fieldset>
                       </div>
                     ) : null}
-                  </div>
 
-                  <div className="relative shrink-0 border-t border-white/10 bg-black/60 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:px-7 sm:py-4">
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                      {!isMobileKeyboardOpen ? (
-                        <div className="text-sm leading-6 text-white/50">
+                    <div className="mt-6 border-t border-white/10 pt-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] sm:mt-8 sm:pt-5">
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="text-xs leading-5 text-white/48 sm:text-sm sm:leading-6 sm:text-white/50">
                           {currentStep === steps.length - 1
                             ? "Ao enviar, o WhatsApp abre com seu briefing montado."
                             : "Você pode avançar no seu ritmo e revisar tudo antes de enviar."}
                         </div>
-                      ) : (
-                        <div className="text-xs uppercase tracking-[0.22em] text-white/40">
-                          Etapa {currentStep + 1} de {steps.length}
+
+                        <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-row sm:gap-3">
+                          {currentStep > 0 ? (
+                            <button
+                              type="button"
+                              onClick={handlePreviousStep}
+                              className={footerSecondaryButtonClassName}
+                            >
+                              VOLTAR
+                            </button>
+                          ) : null}
+
+                          {currentStep < steps.length - 1 ? (
+                            <button
+                              type="submit"
+                              className={footerPrimaryButtonClassName}
+                            >
+                              CONTINUAR
+                            </button>
+                          ) : (
+                            <button
+                              type="submit"
+                              className={footerPrimaryButtonClassName}
+                            >
+                              ABRIR WHATSAPP COM O BRIEFING
+                            </button>
+                          )}
                         </div>
-                      )}
-
-                      <div className="flex flex-col gap-3 sm:flex-row">
-                        {currentStep > 0 ? (
-                          <button
-                            type="button"
-                            onClick={handlePreviousStep}
-                            className="brutal-button brutal-button-ghost"
-                          >
-                            VOLTAR
-                          </button>
-                        ) : null}
-
-                        {currentStep < steps.length - 1 ? (
-                          <button
-                            type="submit"
-                            className="brutal-button brutal-button-primary"
-                          >
-                            CONTINUAR
-                          </button>
-                        ) : (
-                          <button
-                            type="submit"
-                            className="brutal-button brutal-button-primary"
-                          >
-                            ABRIR WHATSAPP COM O BRIEFING
-                          </button>
-                        )}
                       </div>
                     </div>
                   </div>
