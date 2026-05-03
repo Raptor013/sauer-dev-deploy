@@ -190,7 +190,8 @@ function sanitizeFormValues(
       bodyArea === "Outro" && typeof nextValues.bodyAreaOther === "string"
         ? nextValues.bodyAreaOther
         : "",
-    timeline: typeof nextValues.timeline === "string" ? nextValues.timeline : "",
+    timeline:
+      typeof nextValues.timeline === "string" ? nextValues.timeline : "",
     budget: typeof nextValues.budget === "string" ? nextValues.budget : "",
     commitment: Boolean(nextValues.commitment),
   };
@@ -346,19 +347,13 @@ function isFocusableField(
 ): element is HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement {
   return Boolean(
     element &&
-      (element instanceof HTMLInputElement ||
-        element instanceof HTMLTextAreaElement ||
-        element instanceof HTMLSelectElement),
+    (element instanceof HTMLInputElement ||
+      element instanceof HTMLTextAreaElement ||
+      element instanceof HTMLSelectElement),
   );
 }
 
-function FieldError({
-  id,
-  message,
-}: {
-  id?: string;
-  message?: string;
-}) {
+function FieldError({ id, message }: { id?: string; message?: string }) {
   if (!message) {
     return null;
   }
@@ -526,7 +521,9 @@ export function ContactSection({
         return;
       }
 
-      const parsedState = JSON.parse(persistedState) as Partial<PersistedBriefingState>;
+      const parsedState = JSON.parse(
+        persistedState,
+      ) as Partial<PersistedBriefingState>;
 
       setFormValues(sanitizeFormValues(parsedState.formValues));
       setCurrentStep(
@@ -840,8 +837,9 @@ export function ContactSection({
       setCurrentStep(firstInvalidStep);
       setShowStepErrors(true);
       pendingFocusFieldRef.current =
-        getFieldsForStep(firstInvalidStep).find((field) => invalidErrors[field]) ??
-        null;
+        getFieldsForStep(firstInvalidStep).find(
+          (field) => invalidErrors[field],
+        ) ?? null;
       return;
     }
 
@@ -857,8 +855,9 @@ export function ContactSection({
       setCurrentStep(firstInvalidStep);
       setShowStepErrors(true);
       pendingFocusFieldRef.current =
-        getFieldsForStep(firstInvalidStep).find((field) => invalidErrors[field]) ??
-        null;
+        getFieldsForStep(firstInvalidStep).find(
+          (field) => invalidErrors[field],
+        ) ?? null;
       return;
     }
 
@@ -1064,7 +1063,7 @@ export function ContactSection({
                       </select>
                     </label>
 
-                    <div className="space-y-3 border border-white/8 bg-white/[0.02] p-4">
+                    <div className="hidden lg:block space-y-3 border border-white/8 bg-white/[0.02] p-4">
                       <p className="text-[0.68rem] uppercase tracking-[0.3em] text-[#ff8797]">
                         nesta etapa
                       </p>
@@ -1205,7 +1204,9 @@ export function ContactSection({
                           <FieldError
                             id="fullName-error"
                             message={
-                              showStepErrors ? currentErrors.fullName : undefined
+                              showStepErrors
+                                ? currentErrors.fullName
+                                : undefined
                             }
                           />
                         </div>
@@ -1228,7 +1229,10 @@ export function ContactSection({
                               maxLength={16}
                               value={formValues.whatsapp}
                               onChange={(event) =>
-                                handleFieldChange("whatsapp", event.target.value)
+                                handleFieldChange(
+                                  "whatsapp",
+                                  event.target.value,
+                                )
                               }
                               aria-invalid={Boolean(
                                 showStepErrors && currentErrors.whatsapp,
@@ -1301,7 +1305,9 @@ export function ContactSection({
                           value={formValues.experience}
                           onChange={handleFieldChange}
                           error={
-                            showStepErrors ? currentErrors.experience : undefined
+                            showStepErrors
+                              ? currentErrors.experience
+                              : undefined
                           }
                         />
 
@@ -1351,7 +1357,9 @@ export function ContactSection({
                             onChange={handleFieldChange}
                             columns="md:grid-cols-3"
                             error={
-                              showStepErrors ? currentErrors.bodyArea : undefined
+                              showStepErrors
+                                ? currentErrors.bodyArea
+                                : undefined
                             }
                           />
 
