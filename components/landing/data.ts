@@ -127,7 +127,7 @@ export const tattooCareSections = [
     description:
       "Preparar o corpo antes da sessão ajuda na resistência, na leitura da pele e na qualidade da execução do começo ao fim.",
     accent:
-      "bg-[radial-gradient(circle_at_top_left,rgba(255,0,60,0.18),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent_26%)]",
+      "bg-[radial-gradient(circle_at_top_left,rgba(239,0,32,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(239,0,32,0.1),transparent_26%)]",
     items: [
       "Durma bem na noite anterior e chegue descansado para a sessão.",
       "Alimente-se antes do horário marcado e mantenha boa hidratação ao longo do dia.",

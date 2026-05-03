@@ -198,6 +198,37 @@ a {
   background-size: 100% 5px;
 }
 
+.dialog-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(239, 0, 32, 0.6) rgba(255, 255, 255, 0.05);
+}
+
+.dialog-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dialog-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dialog-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 122, 138, 0.92),
+    rgba(239, 0, 32, 0.78)
+  );
+  border: 2px solid rgba(5, 5, 5, 0.94);
+  border-radius: 999px;
+}
+
+.dialog-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 148, 160, 0.98),
+    rgba(255, 38, 67, 0.9)
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

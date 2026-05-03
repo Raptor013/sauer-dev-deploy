@@ -19,6 +19,7 @@ import { WhyChooseSection } from "./landing/why-choose-section";
 export function LandingPage() {
   const heroRef = useRef<HTMLElement | null>(null);
   const [showFloatingWhatsApp, setShowFloatingWhatsApp] = useState(false);
+  const [isBriefingDialogOpen, setIsBriefingDialogOpen] = useState(false);
 
   useEffect(() => {
     let ticking = false;
@@ -83,9 +84,11 @@ export function LandingPage() {
       <FaqSection />
       <TattooCareSection />
       <LocationSection />
-      <ContactSection />
+      <ContactSection onDialogOpenChange={setIsBriefingDialogOpen} />
       <FooterSection />
-      <FloatingWhatsAppButton visible={showFloatingWhatsApp} />
+      <FloatingWhatsAppButton
+        visible={showFloatingWhatsApp && !isBriefingDialogOpen}
+      />
     </main>
   );
 }

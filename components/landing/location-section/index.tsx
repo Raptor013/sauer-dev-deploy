@@ -1,5 +1,6 @@
-const address =
-  "Avenida Presidente Vargas, 1146, Centro, Rio de Janeiro - RJ";
+import { montserrat } from "@/app/fonts";
+
+const address = "Avenida Presidente Vargas, 1146, Centro, Rio de Janeiro - RJ";
 
 const mapsQuery = encodeURIComponent(address);
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
@@ -9,14 +10,14 @@ export function LocationSection() {
   return (
     <section className="section-frame overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="relative overflow-hidden border border-white/10 bg-[#040404]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,rgba(255,0,60,0.1),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_22%)]" />
-          <div className="absolute left-0 top-0 h-2 w-24 bg-[#ff003c] shadow-[0_0_24px_rgba(255,0,60,0.8)] sm:w-32" />
+        <div className="relative overflow-hidden border border-[#EF0020]/10 bg-[#040404]">
+          <div className="absolute left-0 top-0 h-2 w-36 bg-[#EF0020] shadow-[0_0_26px_rgba(239,0,32,0.9)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,0,32,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(239,0,32,0.1),transparent_26%)]" />
 
           <div className="relative grid gap-8 p-5 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10 lg:p-10 xl:p-12">
             <div className="flex items-center">
               <div className="w-full">
-                <p className="section-kicker text-[#ff8aa7]">LOCALIZAÇÃO</p>
+                <p className="section-kicker text-[#ff8797]">LOCALIZAÇÃO</p>
                 <h2 className="font-display mt-4 max-w-xl text-[2.5rem] leading-none tracking-[-0.04em] sm:text-5xl lg:text-6xl">
                   No coração do Centro do Rio.
                 </h2>
@@ -47,15 +48,15 @@ export function LocationSection() {
                   className="mt-8 inline-flex max-w-full items-center gap-3 text-[0.68rem] uppercase tracking-[0.24em] text-white/60 transition-colors hover:text-white sm:gap-4 sm:text-[0.72rem] sm:tracking-[0.32em]"
                 >
                   <span className="break-words">abrir no google maps</span>
-                  <span className="h-px w-14 bg-[#ff003c]/60 transition-all duration-300 hover:w-20" />
+                  <span className="h-px w-14 bg-[#EF0020] transition-all duration-300 hover:w-20" />
                 </a>
               </div>
             </div>
 
             <div className="relative">
               <div className="relative overflow-hidden border border-white/12 bg-black shadow-[0_0_36px_rgba(255,0,60,0.08)]">
-                <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0.16),rgba(0,0,0,0.32))]" />
-                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,rgba(255,0,60,0.1),transparent_26%)]" />
+                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,rgba(239,0,32,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(239,0,32,0.1),transparent_26%)]" />
+                <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,rgba(239,0,32,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(239,0,32,0.1),transparent_26%)]" />
                 <div className="relative aspect-[4/5] min-h-[20rem] sm:aspect-[16/10] lg:min-h-[28rem]">
                   <iframe
                     title="Mapa do estúdio em Avenida Presidente Vargas, 1146, Centro, Rio de Janeiro - RJ"
@@ -80,7 +81,7 @@ export function LocationSection() {
                   href={mapsHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="brutal-button brutal-button-secondary w-full sm:w-auto sm:min-w-[11rem]"
+                  className={`${montserrat.className} mt-8 inline-flex min-h-14 w-full max-w-[16rem] items-center justify-center border border-[#EF0020] bg-black/36 px-6 text-[1rem] font-normal uppercase tracking-[0.28em] text-[#FFEAEA] shadow-[0_0_0_1px_rgba(255,0,60,0.08)] backdrop-blur-[2px] transition duration-300 hover:-translate-y-0.5 hover:border-[#ff0037] hover:bg-[#130204]/92 hover:shadow-[0_0_24px_rgba(255,0,60,0.22)] sm:max-w-68`}
                 >
                   VER ROTA
                 </a>

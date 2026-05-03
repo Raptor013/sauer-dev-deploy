@@ -19,10 +19,10 @@ export function StylesSection() {
             className="group bg-black p-6 transition-colors duration-300 hover:bg-[#090909]"
           >
             <div className="flex items-start justify-between">
-              <span className="font-display text-5xl text-white/18 transition-colors duration-300 group-hover:text-[#ff003c]">
+              <span className="font-display text-5xl text-white/18 transition-colors duration-300 group-hover:text-[#ef0020]">
                 0{index + 1}
               </span>
-              <span className="mt-2 h-3 w-12 bg-white/12 transition-all duration-300 group-hover:w-20 group-hover:bg-[#ff003c]" />
+              <span className="mt-2 h-3 w-12 bg-white/12 transition-all duration-300 group-hover:w-20 group-hover:bg-[#ef0020]" />
             </div>
             <h3 className="mt-14 font-display text-3xl leading-none tracking-[-0.04em]">
               {style.title}

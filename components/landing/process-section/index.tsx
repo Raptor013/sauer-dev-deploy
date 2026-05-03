@@ -16,7 +16,7 @@ export function ProcessSection() {
               key={step.title}
               className="grid gap-5 bg-black px-5 py-6 transition-colors duration-300 hover:bg-[#080808] sm:grid-cols-[110px_1fr_auto] sm:items-center"
             >
-              <span className="font-display text-3xl text-[#ff003c]">
+              <span className="font-display text-3xl text-[#EF0020]">
                 {step.index}
               </span>
               <div>

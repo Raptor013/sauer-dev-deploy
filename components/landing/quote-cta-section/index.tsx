@@ -2,11 +2,16 @@ import { defaultWhatsAppHref } from "../whatsapp";
 
 export function QuoteCtaSection() {
   return (
-    <section className="section-frame px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
-      <div className="mx-auto max-w-5xl">
-        <div className="relative overflow-hidden border border-[#ff003c]/35 bg-[#040404] px-6 py-8 shadow-[0_0_36px_rgba(255,0,60,0.1)] sm:px-8 sm:py-10 lg:px-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(255,0,60,0.14),transparent_30%)]" />
-          <div className="absolute left-0 top-0 h-2 w-28 bg-[#ff003c] shadow-[0_0_20px_rgba(255,0,60,0.8)] sm:w-36" />
+    <section className="section-frame overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
+      <div className="relative mx-auto max-w-5xl">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-4 bg-[#EF0020]/28 blur-[34px] sm:-inset-5 lg:-inset-6"
+        />
+
+        <div className="relative overflow-hidden border border-[#EF0020]/35 bg-[#040404] px-6 py-8 shadow-[0_0_36px_rgba(239,0,32,0.1)] sm:px-8 sm:py-10 lg:px-10">
+          <div className="absolute left-0 top-0 h-2 w-36 bg-[#EF0020] shadow-[0_0_26px_rgba(239,0,32,0.9)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,0,32,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(239,0,32,0.1),transparent_26%)]" />
 
           <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>

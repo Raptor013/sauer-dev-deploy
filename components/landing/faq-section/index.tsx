@@ -53,14 +53,14 @@ export function FaqSection() {
   return (
     <section className="section-frame overflow-hidden px-4 py-20 sm:px-8 lg:px-12 lg:py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="relative overflow-hidden border border-white/10 bg-[#040404]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(255,0,60,0.1),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.02),transparent_18%)]" />
-          <div className="absolute left-0 top-0 h-2 w-24 bg-[#ff003c] shadow-[0_0_24px_rgba(255,0,60,0.82)] sm:w-32" />
+        <div className="relative overflow-hidden border border-[#EF0020]/10 bg-[#040404]">
+          <div className="absolute left-0 top-0 h-2 w-36 bg-[#EF0020] shadow-[0_0_26px_rgba(239,0,32,0.9)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,0,32,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(239,0,32,0.1),transparent_26%)]" />
 
           <div className="relative grid gap-8 px-4 py-6 sm:px-8 sm:py-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-10 lg:px-10 lg:py-10 xl:px-12">
             <div className="flex items-start">
               <div className="w-full">
-                <p className="section-kicker text-[#ff8aa7]">FAQ</p>
+                <p className="section-kicker text-[#ff8797]">FAQ</p>
                 <h2 className="font-display mt-4 max-w-xl text-[2.2rem] leading-none tracking-[-0.05em] sm:text-5xl lg:text-6xl">
                   Dúvidas que costumam aparecer antes da sessão.
                 </h2>
@@ -86,10 +86,10 @@ export function FaqSection() {
               {faqItems.map((item, index) => (
                 <details
                   key={item.question}
-                  className="group overflow-hidden border border-white/10 bg-black/90 open:border-[#ff003c]/30 open:bg-[#070707]"
+                  className="group overflow-hidden border border-[#EF0020]/10 bg-black/90 open:border-[#EF0020]/30 open:bg-[#070707]"
                 >
                   <summary className="flex cursor-pointer list-none items-center gap-4 px-4 py-4 sm:px-5 sm:py-5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#ff003c]/28 bg-[#ff003c]/8 text-[#ff6a8b] transition-colors duration-300 group-open:border-[#ff003c]/55 group-open:bg-[#ff003c]/12 group-open:text-white">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#EF0020]/28 bg-[#EF0020]/8 text-[#ff6a8b] transition-colors duration-300 group-open:border-[#EF0020]/55 group-open:bg-[#EF0020]/12 group-open:text-white">
                       {/* <FaqIcon /> */}
                       <p className="text-[0.65rem] uppercase tracking-[0.3em] text-white/34">
                         {String(index + 1).padStart(2, "0")}
@@ -97,13 +97,12 @@ export function FaqSection() {
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      
                       <h3 className="mt-2 font-display text-[1.6rem] leading-none tracking-[-0.04em] text-white sm:text-[1.9rem]">
                         {item.question}
                       </h3>
                     </div>
 
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/10 text-[#ff8aa7] transition-all duration-300 group-open:rotate-45 group-open:border-[#ff003c]/35 group-open:text-white">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/10 text-[#ff8aa7] transition-all duration-300 group-open:rotate-45 group-open:border-[#EF0020]/35 group-open:text-white">
                       <FaqIcon />
                     </div>
                   </summary>

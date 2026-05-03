@@ -1,12 +1,16 @@
 import { whyChooseItems } from "../data";
 
-function WhyChooseIcon({ icon }: { icon: (typeof whyChooseItems)[number]["icon"] }) {
+function WhyChooseIcon({
+  icon,
+}: {
+  icon: (typeof whyChooseItems)[number]["icon"];
+}) {
   if (icon === "spark") {
     return (
       <svg
         aria-hidden="true"
         viewBox="0 0 24 24"
-        className="h-6 w-6 text-[#ff003c] sm:h-7 sm:w-7"
+        className="h-6 w-6 text-[#EF0020] sm:h-7 sm:w-7"
         fill="none"
         stroke="currentColor"
         strokeWidth="1.7"
@@ -25,7 +29,7 @@ function WhyChooseIcon({ icon }: { icon: (typeof whyChooseItems)[number]["icon"]
       <svg
         aria-hidden="true"
         viewBox="0 0 24 24"
-        className="h-6 w-6 text-[#ff003c] sm:h-7 sm:w-7"
+        className="h-6 w-6 text-[#EF0020] sm:h-7 sm:w-7"
         fill="none"
         stroke="currentColor"
         strokeWidth="1.7"
@@ -42,7 +46,7 @@ function WhyChooseIcon({ icon }: { icon: (typeof whyChooseItems)[number]["icon"]
     <svg
       aria-hidden="true"
       viewBox="0 0 24 24"
-      className="h-6 w-6 text-[#ff003c] sm:h-7 sm:w-7"
+      className="h-6 w-6 text-[#EF0020] sm:h-7 sm:w-7"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.7"
@@ -62,10 +66,10 @@ function WhyChooseIcon({ icon }: { icon: (typeof whyChooseItems)[number]["icon"]
 export function WhyChooseSection() {
   return (
     <section className="section-frame overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-24">
-      <div className="relative border border-white/10 bg-[#040404]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,0,60,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent_22%)]" />
-        <div className="absolute left-0 top-0 h-px w-24 bg-[#ff003c]/75 sm:w-36" />
-        <div className="absolute right-0 top-0 h-px w-14 bg-white/10 sm:w-24" />
+      <div className="relative border border-[#EF0020]/10 bg-[#040404]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,0,32,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent_22%)]" />
+        <div className="absolute left-0 top-0 h-px w-24 bg-[#EF0020]/75 sm:w-36" />
+        {/* <div className="absolute right-0 top-0 h-px w-14 bg-white/10 sm:w-24" /> */}
 
         <div className="relative p-5 sm:p-8 lg:p-10 xl:p-12">
           <div className="grid gap-6 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
@@ -89,10 +93,10 @@ export function WhyChooseSection() {
                 className="group bg-black px-5 py-6 transition-colors duration-300 hover:bg-[#080808] sm:px-6 sm:py-7"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#ff003c]/28 bg-[#ff003c]/8 transition-colors duration-300 group-hover:border-[#ff003c]/55 group-hover:bg-[#ff003c]/12 sm:h-14 sm:w-14">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[#EF0020]/28 bg-[#EF0020]/8 transition-colors duration-300 group-hover:border-[#EF0020]/55 group-hover:bg-[#EF0020]/12 sm:h-14 sm:w-14">
                     <WhyChooseIcon icon={item.icon} />
                   </div>
-                  <span className="h-px w-14 bg-white/14 transition-all duration-300 group-hover:w-20 group-hover:bg-[#ff003c]" />
+                  <span className="h-px w-14 bg-white/14 transition-all duration-300 group-hover:w-20 group-hover:bg-[#EF0020]" />
                 </div>
 
                 <h3 className="font-display mt-8 max-w-xs text-3xl leading-none tracking-[-0.04em]">
