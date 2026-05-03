@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent, PointerEvent, TransitionEvent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { SectionTitle } from "../section-title";
 // import { SectionTitle } from "../section-title";
 
@@ -261,7 +261,7 @@ export function ShowcaseCarousel({
       className="section-frame overflow-hidden px-6 py-20 sm:px-8 lg:px-12 lg:py-24"
     >
       <div className="relative overflow-hidden border border-white/10 bg-[#040404]">
-        <div className="absolute left-0 top-0 h-2 w-24 bg-[#ff003c] shadow-[0_0_24px_rgba(255,0,60,0.82)] sm:w-32" />
+        {/* <div className="absolute left-0 top-0 h-2 w-24 bg-[#ff003c] shadow-[0_0_24px_rgba(255,0,60,0.82)] sm:w-32" /> */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,0,60,0.14),transparent_28%)]" />
         <div className="relative px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
           <SectionTitle

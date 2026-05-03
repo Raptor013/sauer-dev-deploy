@@ -148,7 +148,7 @@ export function TestimonialsSection() {
                       <div className="absolute inset-0 bg-[#EF0020]/0 transition-colors duration-500 group-hover:bg-[#EF0020]/10" />
                     </div>
                     <div className="relative p-5 sm:p-6">
-                      <div className="mb-4 h-px w-14 bg-[#EF0020]/55 transition-all duration-300 group-hover:w-20 group-hover:bg-[#EF0020]" />
+                      <div className="mb-4 hidden h-px w-14 bg-[#EF0020]/55 transition-all duration-300 group-hover:w-20 group-hover:bg-[#EF0020] sm:block" />
                       <h3 className="font-display text-[1.9rem] leading-none tracking-[-0.04em] text-white sm:text-[2.2rem]">
                         {item.title}
                       </h3>
