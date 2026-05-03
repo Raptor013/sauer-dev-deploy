@@ -178,6 +178,18 @@
 }
 
 @media (max-width: 767px) {
+  .heroMedia {
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * 12px), 0)
+      scale(calc(1 + var(--hero-scroll-progress) * 0.014));
+    transition: none;
+  }
+
+  .heroImage {
+    opacity: clamp(0.88, calc(1 - (var(--hero-scroll-progress) * 0.1)), 1);
+    transform: scale(calc(1 + var(--hero-scroll-progress) * 0.012));
+    transition: none;
+  }
+
   .heroOverlay {
     background: radial-gradient(
       circle at 50% 30%,
@@ -188,6 +200,7 @@
       rgba(0, 0, 0, 0.88) 100%
     );
     opacity: calc(0.74 - (var(--hero-scroll-progress) * 0.14));
+    transition: none;
   }
 
   .heroMobileOverlay {
@@ -210,6 +223,7 @@
 
   .heroTopFade {
     opacity: calc(0.56 - (var(--hero-scroll-progress) * 0.16));
+    transition: none;
   }
 
   .heroNoise {
@@ -218,14 +232,31 @@
       calc(0.045 - (var(--hero-scroll-progress) * 0.025)),
       0.045
     );
+    transition: none;
   }
 
   .heroTransitionGlow {
     opacity: calc(0.42 + (var(--hero-scroll-progress) * 0.62));
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * -8px), 0)
+      scaleX(calc(1 + var(--hero-scroll-progress) * 0.05));
+    transition: none;
   }
 
   .heroExitFade {
     opacity: calc(0.04 + (var(--hero-scroll-progress) * 0.74));
+    transition: none;
+  }
+
+  .heroContent {
+    transform: none;
+    opacity: clamp(0.3, calc(1 - (var(--hero-scroll-progress) * 0.42)), 1);
+    filter: none;
+    transition: opacity 90ms linear;
+  }
+
+  .mobileHeroPanel {
+    transform: none;
+    transition: none;
   }
 
   .heroImageMobile {

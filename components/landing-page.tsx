@@ -33,8 +33,13 @@ export function LandingPage() {
 
       const rect = heroRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight || 1;
+      const heroHeight = Math.max(rect.height, viewportHeight, 1);
+      const isMobileViewport = window.innerWidth < 768;
+      const scrollRange = isMobileViewport
+        ? Math.max(heroHeight * 1.15, viewportHeight, 1)
+        : Math.max(viewportHeight * 0.9, 1);
       const progress = Math.min(
-        Math.max(-rect.top / Math.max(viewportHeight * 0.9, 1), 0),
+        Math.max(-rect.top / scrollRange, 0),
         1,
       );
       const shouldShowFloatingWhatsApp =
