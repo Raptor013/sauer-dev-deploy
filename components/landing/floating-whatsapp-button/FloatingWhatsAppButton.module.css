@@ -1,19 +1,40 @@
 .whatsappFloat {
+  border: 2px solid transparent;
+  background:
+    radial-gradient(circle at 35% 24%, #1b1710 0%, #090807 38%, #010101 78%) padding-box,
+    conic-gradient(from 20deg, #b47a29, #f9dc91 14%, #a56b1f 31%, #dfad50 53%, #fff0bd 65%, #a36d24 82%, #d9a74f) border-box;
+  box-shadow: 0 0 18px rgb(205 147 50 / 0.22), 0 0 36px rgb(205 147 50 / 0.09);
   animation: whatsapp-float 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   transform-origin: center;
   will-change: transform, box-shadow;
 }
 
 .whatsappRing {
+  border: 1px solid rgb(234 179 74 / 0.64);
+  box-shadow: 0 0 7px rgb(219 159 51 / 0.26);
   animation: whatsapp-ring 2.2s ease-out infinite;
   will-change: transform, opacity;
 }
 
 .whatsappRingDelay {
+  border-color: rgb(211 151 53 / 0.42);
   animation-delay: 1.1s;
 }
 
+.whatsappInnerRim {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#080705, #080705) padding-box,
+    conic-gradient(from 200deg, #8e5b1f, #f4cf79 20%, #ad7327 41%, #dfb160 66%, #fff0bd 78%, #9c6622) border-box;
+  box-shadow: inset 0 0 0 1px rgb(218 167 75 / 0.25), 0 0 5px rgb(232 168 54 / 0.32);
+}
+
+.whatsappSheen {
+  background: radial-gradient(circle at 28% 18%, rgb(255 220 145 / 0.12), transparent 56%);
+}
+
 .whatsappIcon {
+  filter: drop-shadow(0 0 2px rgb(242 184 74 / 0.45));
   animation: whatsapp-icon 1.8s ease-in-out infinite;
   transform-origin: center;
   will-change: transform;
@@ -24,26 +45,26 @@
   100% {
     transform: translate3d(0, 0, 0) scale(1);
     box-shadow:
-      0 0 18px rgba(255, 0, 60, 0.42),
-      0 0 36px rgba(255, 0, 60, 0.2);
+      0 0 18px rgb(205 147 50 / 0.22),
+      0 0 36px rgb(205 147 50 / 0.09);
   }
   18% {
     transform: translate3d(0, -4px, 0) scale(1.06);
     box-shadow:
-      0 0 22px rgba(255, 0, 60, 0.56),
-      0 0 42px rgba(255, 0, 60, 0.26);
+      0 0 22px rgb(227 171 64 / 0.32),
+      0 0 42px rgb(227 171 64 / 0.13);
   }
   36% {
     transform: translate3d(0, 0, 0) scale(0.98);
     box-shadow:
-      0 0 16px rgba(255, 0, 60, 0.34),
-      0 0 30px rgba(255, 0, 60, 0.18);
+      0 0 16px rgb(194 139 45 / 0.18),
+      0 0 30px rgb(194 139 45 / 0.08);
   }
   54% {
     transform: translate3d(0, -2px, 0) scale(1.03);
     box-shadow:
-      0 0 20px rgba(255, 0, 60, 0.5),
-      0 0 38px rgba(255, 0, 60, 0.24);
+      0 0 20px rgb(218 162 57 / 0.28),
+      0 0 38px rgb(218 162 57 / 0.12);
   }
 }
 

@@ -2,29 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AboutSection } from "./landing/about-section";
-import { ContactSection } from "./landing/contact-section";
-import { FaqSection } from "./landing/faq-section";
 import { FloatingWhatsAppButton } from "./landing/floating-whatsapp-button";
 import { FooterSection } from "./landing/footer-section";
 import { HeroSection } from "./landing/hero-section";
 import { LocationSection } from "./landing/location-section";
 import { PortfolioSection } from "./landing/portfolio-section";
-import { ProcessSection } from "./landing/process-section";
 import { QuoteCtaSection } from "./landing/quote-cta-section";
-import { StylesSection } from "./landing/styles-section";
-import { TattooCareSection } from "./landing/tattoo-care-section";
 import { TestimonialsSection } from "./landing/testimonials-section";
-import { WhyChooseSection } from "./landing/why-choose-section";
 
 export function LandingPage() {
   const heroRef = useRef<HTMLElement | null>(null);
   const [showFloatingWhatsApp, setShowFloatingWhatsApp] = useState(false);
-  const [isBriefingDialogOpen, setIsBriefingDialogOpen] = useState(false);
 
   useEffect(() => {
     let ticking = false;
 
-    const updateHeroEffects = () => {
+    const updateFloatingWhatsApp = () => {
       ticking = false;
 
       if (!heroRef.current) {
@@ -33,22 +26,8 @@ export function LandingPage() {
 
       const rect = heroRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight || 1;
-      const heroHeight = Math.max(rect.height, viewportHeight, 1);
-      const isMobileViewport = window.innerWidth < 768;
-      const scrollRange = isMobileViewport
-        ? Math.max(heroHeight * 1.15, viewportHeight, 1)
-        : Math.max(viewportHeight * 0.9, 1);
-      const progress = Math.min(
-        Math.max(-rect.top / scrollRange, 0),
-        1,
-      );
       const shouldShowFloatingWhatsApp =
         rect.bottom <= viewportHeight * 0.1 && rect.top < 0;
-
-      heroRef.current.style.setProperty(
-        "--hero-scroll-progress",
-        progress.toFixed(3),
-      );
 
       setShowFloatingWhatsApp((current) =>
         current === shouldShowFloatingWhatsApp
@@ -63,10 +42,10 @@ export function LandingPage() {
       }
 
       ticking = true;
-      window.requestAnimationFrame(updateHeroEffects);
+      window.requestAnimationFrame(updateFloatingWhatsApp);
     };
 
-    updateHeroEffects();
+    updateFloatingWhatsApp();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
 
@@ -81,19 +60,13 @@ export function LandingPage() {
       <HeroSection heroRef={heroRef} />
       <PortfolioSection />
       <AboutSection />
-      <WhyChooseSection />
       <TestimonialsSection />
-      <StylesSection />
       <QuoteCtaSection />
-      <ProcessSection />
-      <FaqSection />
-      <TattooCareSection />
       <LocationSection />
-      <ContactSection onDialogOpenChange={setIsBriefingDialogOpen} />
-      <FooterSection />
-      <FloatingWhatsAppButton
-        visible={showFloatingWhatsApp && !isBriefingDialogOpen}
-      />
+      <div>
+        <FooterSection />
+      </div>
+      <FloatingWhatsAppButton visible={showFloatingWhatsApp} />
     </main>
   );
 }

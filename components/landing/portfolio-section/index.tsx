@@ -1,8 +1,11 @@
 "use client";
 
 import { montserrat } from "@/app/fonts";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { portfolioItems } from "../data";
+import reflectionStyles from "@/components/ui/PolishedReflection.module.css";
 import styles from "./PortfolioSection.module.css";
 
 type PortfolioItem = (typeof portfolioItems)[number];
@@ -16,40 +19,6 @@ function getArtworkStyle(item: PortfolioItem) {
   } as const;
 }
 
-function AwardDetails({
-  award,
-}: {
-  award: NonNullable<PortfolioItem["award"]>;
-}) {
-  return (
-    <div className="pointer-events-none mb-4 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 sm:mb-5">
-      <div className="award-label text-[0.84rem] font-black uppercase tracking-[0.24em] text-[#ff6a7f] sm:text-[0.95rem]">
-        <span>Premiado</span>
-      </div>
-      <p className="award-title mt-1 text-base font-black uppercase leading-tight tracking-[0.16em] text-[#ff7185] sm:mt-3 sm:text-lg">
-        {award.title}
-      </p>
-      <p className="mt-6 text-[0.95rem] font-extrabold leading-snug text-white drop-shadow-[0_0_12px_rgba(255,0,60,0.42)] sm:text-base">
-        {award.description}
-      </p>
-      <style jsx>{`
-        .award-label,
-        .award-title {
-          text-shadow:
-            0 0 6px rgba(255, 75, 109, 0.92),
-            0 0 14px rgba(255, 24, 74, 0.82),
-            0 0 28px rgba(255, 0, 60, 0.58),
-            0 2px 10px rgba(52, 0, 8, 0.82);
-        }
-
-        .award-title {
-          letter-spacing: 0.14em;
-        }
-      `}</style>
-    </div>
-  );
-}
-
 function PortfolioCard({
   item,
   className,
@@ -61,7 +30,7 @@ function PortfolioCard({
   className?: string;
   style?: React.CSSProperties;
   bodyClassName?: string;
-  onOpen: (item: PortfolioItem) => void;
+  onOpen: (item: PortfolioItem, trigger: HTMLButtonElement) => void;
 }) {
   return (
     <article
@@ -74,22 +43,11 @@ function PortfolioCard({
         style={getArtworkStyle(item)}
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.18)_42%,rgba(0,0,0,0.98)_100%)]" />
-      <div className="absolute inset-0 bg-[#EF0020]/0 transition-colors duration-500 group-hover:bg-[#EF0020]/18" />
+      <div className={styles.cardHoverWash} />
       <div className={`relative ${bodyClassName ?? "h-full min-h-[22rem]"}`} />
-      <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6">
-        <div className="px-4 py-3 backdrop-blur-[1px] sm:bg-transparent sm:px-0 sm:py-0">
-          {item.isAwarded && item.award ? (
-            <AwardDetails award={item.award} />
-          ) : null}
-          <h3 className="font-display text-[2rem] leading-none tracking-[-0.04em] text-white drop-shadow-[0_8px_24px_rgba(0,0,0,0.95)] sm:text-5xl">
-            {item.title}
-          </h3>
-        </div>
-      </div>
-
       <button
         type="button"
-        onClick={() => onOpen(item)}
+        onClick={(event) => onOpen(item, event.currentTarget)}
         className="absolute inset-0 z-20 cursor-pointer"
         aria-label={`Abrir visualização de ${item.title}`}
       >
@@ -102,7 +60,14 @@ function PortfolioCard({
 export function PortfolioSection() {
   const [showMore, setShowMore] = useState(false);
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
-  const portfolioRows = [portfolioItems, portfolioItems];
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const openItem = (item: PortfolioItem, trigger: HTMLButtonElement) => {
+    triggerRef.current = trigger;
+    setSelectedItem(item);
+  };
+  const portfolioRows = [portfolioItems.slice(0, 4), portfolioItems.slice(4)];
   const desktopTopSpans = [11, 10, 13, 11];
   const desktopBottomSpans = [13, 14, 11, 13];
 
@@ -112,12 +77,33 @@ export function PortfolioSection() {
     }
 
     const previousOverflow = document.body.style.overflow;
+    const trigger = triggerRef.current;
+    const backgroundElements = new Map<HTMLElement, boolean>();
+    let branch: HTMLElement | null = modalRef.current;
+
+    closeButtonRef.current?.focus({ preventScroll: true });
+
+    while (branch && branch !== document.body) {
+      const parent: HTMLElement | null = branch.parentElement;
+      if (!parent) break;
+      for (const sibling of parent.children) {
+        if (sibling instanceof HTMLElement && sibling !== branch) {
+          backgroundElements.set(sibling, sibling.inert);
+          sibling.inert = true;
+        }
+      }
+      branch = parent;
+    }
 
     document.body.style.overflow = "hidden";
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        event.preventDefault();
         setSelectedItem(null);
+      } else if (event.key === "Tab") {
+        event.preventDefault();
+        closeButtonRef.current?.focus({ preventScroll: true });
       }
     };
 
@@ -126,6 +112,12 @@ export function PortfolioSection() {
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
+      backgroundElements.forEach((inert, element) => {
+        element.inert = inert;
+      });
+      if (trigger?.isConnected) {
+        trigger.focus({ preventScroll: true });
+      }
     };
   }, [selectedItem]);
 
@@ -133,21 +125,33 @@ export function PortfolioSection() {
     <>
       <section
         id="portfolio"
-        className="section-frame px-6 py-20 sm:px-8 lg:px-12 lg:py-24"
+        className={`${styles.gallerySection} section-frame px-6 py-20 sm:px-8 lg:px-12 lg:py-24`}
       >
-        {/* <div className="absolute inset-x-0 top-1 h-[5%] w-full bg-[radial-gradient(circle_at_center,rgba(249,0,0,0.1),transparent_90%)] blur-2xl" /> */}
-        <div className="mb-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          <div>
-            <p className="section-kicker">PORTFÓLIO</p>
-            <h2 className="font-display mt-3 max-w-xl text-4xl leading-none tracking-[-0.04em] sm:text-6xl">
-              Galeria de projetos.
-            </h2>
+        <header className={styles.galleryHeader}>
+          <h2 className={styles.galleryTitle}>GALERIA DE PROJETOS</h2>
+          <span className={styles.titleRule} aria-hidden="true" />
+          <div className={styles.subtitleComposition}>
+            <Image
+              src="/images/arabesco-esquerda.png"
+              alt=""
+              width={2172}
+              height={724}
+              sizes="(max-width: 639px) 32vw, (max-width: 1023px) 12vw, 16rem"
+              className={styles.arabesqueLeft}
+            />
+            <p className={styles.gallerySubtitle}>
+              Uma seleção de trabalhos feitos por Sauer, unindo técnica, composição e identidade em projetos criados para diferentes histórias
+            </p>
+            <Image
+              src="/images/arabesco-direita.png"
+              alt=""
+              width={2171}
+              height={724}
+              sizes="(max-width: 639px) 32vw, (max-width: 1023px) 12vw, 16rem"
+              className={styles.arabesqueRight}
+            />
           </div>
-          {/* <p className="max-w-lg justify-self-end text-sm leading-6 text-white/58 sm:text-base">
-            Retratos verticais, cortes próximos e composição pensada para o
-            enquadramento real de tatuagens no feed e no estúdio.
-          </p> */}
-        </div>
+        </header>
 
         <div className="grid gap-5 xl:hidden">
           {portfolioRows.slice(0, showMore ? 2 : 1).map((row, rowIndex) => (
@@ -161,7 +165,7 @@ export function PortfolioSection() {
                   item={item}
                   className={item.frame}
                   bodyClassName="min-h-[30rem] md:min-h-0"
-                  onOpen={setSelectedItem}
+                  onOpen={openItem}
                 />
               ))}
             </div>
@@ -169,22 +173,22 @@ export function PortfolioSection() {
         </div>
 
         <div className="hidden xl:grid xl:grid-cols-4 xl:auto-rows-[2.75rem] xl:gap-5">
-          {portfolioItems.map((item, index) => (
+          {portfolioRows[0].map((item, index) => (
             <PortfolioCard
               key={`${item.title}-top`}
               item={item}
               style={{ gridRow: `span ${desktopTopSpans[index]}` }}
-              onOpen={setSelectedItem}
+              onOpen={openItem}
             />
           ))}
 
           {showMore &&
-            portfolioItems.map((item, index) => (
+            portfolioRows[1].map((item, index) => (
               <PortfolioCard
                 key={`${item.title}-bottom`}
                 item={item}
                 style={{ gridRow: `span ${desktopBottomSpans[index]}` }}
-                onOpen={setSelectedItem}
+                onOpen={openItem}
               />
             ))}
         </div>
@@ -193,15 +197,18 @@ export function PortfolioSection() {
           <button
             type="button"
             onClick={() => setShowMore((current) => !current)}
-            className={`${montserrat.className} mt-8 inline-flex min-h-14 w-full max-w-[16rem] items-center justify-center border border-[#EF0020] bg-black/36 px-6 text-[1rem] font-normal uppercase tracking-[0.28em] text-[#FFEAEA] shadow-[0_0_0_1px_rgba(255,0,60,0.08)] backdrop-blur-[2px] transition duration-300 hover:-translate-y-0.5 hover:border-[#ff0037] hover:bg-[#130204]/92 hover:shadow-[0_0_24px_rgba(255,0,60,0.22)] sm:max-w-68`}
+            className={`${styles.moreButton} ${reflectionStyles.reflection} ${montserrat.className}`}
           >
-            {showMore ? "VER MENOS" : "VER MAIS"}
+            <span className={reflectionStyles.label}>
+              {showMore ? "VER MENOS" : "VER MAIS"}
+            </span>
           </button>
         </div>
       </section>
 
-      {selectedItem ? (
+      {selectedItem ? createPortal(
         <div
+          ref={modalRef}
           className={styles.modalBackdrop}
           role="dialog"
           aria-modal="true"
@@ -213,6 +220,7 @@ export function PortfolioSection() {
             onClick={(event) => event.stopPropagation()}
           >
             <button
+              ref={closeButtonRef}
               type="button"
               onClick={() => setSelectedItem(null)}
               className={styles.closeButton}
@@ -229,21 +237,10 @@ export function PortfolioSection() {
                 className={styles.modalArtwork}
                 style={getArtworkStyle(selectedItem)}
               />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08)_0%,rgba(0,0,0,0.26)_42%,rgba(0,0,0,0.9)_100%)]" />
-              <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-8">
-                {selectedItem.isAwarded && selectedItem.award ? (
-                  <p className="mb-3 text-xs font-black uppercase tracking-[0.24em] text-[#ff6a7f] sm:text-sm">
-                    {selectedItem.award.title} •{" "}
-                    {selectedItem.award.description}
-                  </p>
-                ) : null}
-                <h3 className="font-display text-4xl leading-none tracking-[-0.04em] text-white sm:text-6xl">
-                  {selectedItem.title}
-                </h3>
-              </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       ) : null}
     </>
   );

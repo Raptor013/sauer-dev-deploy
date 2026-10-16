@@ -1,24 +1,9 @@
-import { Alata, Bebas_Neue, Montserrat } from "next/font/google";
-import localFont from "next/font/local";
+import { Bebas_Neue, Montserrat } from "next/font/google";
 
 export const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-display",
-});
-
-export const boldonse = localFont({
-  src: "./fonts/Boldonse-Regular.ttf",
-  weight: "400",
-  style: "normal",
-  display: "swap",
-  variable: "--font-boldonse",
-});
-
-export const alata = Alata({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-alata",
 });
 
 export const montserrat = Montserrat({

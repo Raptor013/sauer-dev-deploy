@@ -1,0 +1,257 @@
+.section {
+  padding: clamp(2.5rem, 5vw, 5rem) clamp(0.8rem, 3vw, 3rem);
+  background: #000;
+  color: #f5f1e9;
+}
+
+.panel {
+  position: relative;
+  max-width: 92rem;
+  margin-inline: auto;
+  border: 1px solid rgb(178 132 61 / 0.75);
+  background: linear-gradient(115deg, #070706, #020202 58%, #080705);
+  box-shadow: inset 0 0 0 1px rgb(255 220 150 / 0.06);
+}
+
+.panel::before {
+  position: absolute;
+  inset: -1px;
+  background:
+    linear-gradient(90deg, transparent 2%, rgb(246 206 122 / 0.9) 7%, transparent 12%, transparent 76%, rgb(226 178 91 / 0.6) 82%, transparent 88%) top / 100% 1px no-repeat,
+    linear-gradient(90deg, transparent 24%, rgb(231 186 103 / 0.7) 29%, transparent 34%, transparent 86%, rgb(244 207 132 / 0.8) 92%, transparent 97%) bottom / 100% 1px no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4.5rem);
+  padding: clamp(1.5rem, 3vw, 3.25rem);
+}
+
+.copy,
+.mapColumn {
+  min-width: 0;
+}
+
+.kicker {
+  color: #d6ad66;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(0.9rem, 1.25vw, 1.2rem);
+  letter-spacing: 0.34em;
+  line-height: 1.2;
+}
+
+.title {
+  max-width: 37rem;
+  margin-top: 0.8rem;
+  color: #f5f1e9;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(2.75rem, 3.9vw, 4.25rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+
+.description {
+  max-width: 33rem;
+  margin-top: clamp(1.25rem, 2vw, 1.8rem);
+  color: #bbb7af;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.075rem);
+  line-height: 1.55;
+}
+
+.addressCard {
+  position: relative;
+  max-width: 34rem;
+  margin-top: clamp(1.75rem, 3vw, 2.75rem);
+  border: 1px solid rgb(177 131 58 / 0.82);
+  padding: clamp(1.2rem, 2vw, 1.8rem);
+  background: #030303;
+  box-shadow: inset 0 1px 0 rgb(255 225 162 / 0.1), 0 0 10px rgb(190 141 56 / 0.06);
+  font-style: normal;
+}
+
+.addressCard::before {
+  position: absolute;
+  inset: -1px;
+  background:
+    linear-gradient(90deg, transparent 4%, rgb(252 218 143 / 0.9) 12%, transparent 22%) top / 100% 1px no-repeat,
+    linear-gradient(90deg, transparent 74%, rgb(239 195 114 / 0.78) 86%, transparent 96%) bottom / 100% 1px no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.addressLabel {
+  color: #d6ad66;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.32em;
+}
+
+.addressMain {
+  margin-top: 0.7rem;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.7rem, 2.1vw, 2.3rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+
+.addressDetail {
+  margin-top: 0.7rem;
+  color: #bdb8af;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.4;
+}
+
+.mapFrame {
+  position: relative;
+  height: clamp(26rem, 33vw, 34rem);
+  overflow: hidden;
+  border: 1px solid rgb(191 143 67 / 0.9);
+  background: #11110f;
+  box-shadow: 0 0 0 3px rgb(187 137 56 / 0.07), inset 0 0 0 1px rgb(255 224 164 / 0.08);
+}
+
+.mapFrame::after {
+  position: absolute;
+  inset: -1px;
+  background:
+    linear-gradient(90deg, transparent 6%, rgb(255 221 149 / 0.87) 13%, transparent 20%) top / 100% 1px no-repeat,
+    linear-gradient(90deg, transparent 69%, rgb(249 207 128 / 0.82) 78%, transparent 88%) bottom / 100% 1px no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.mapIframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(1) contrast(1.25) brightness(0.72) invert(1);
+}
+
+.mapActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.mapsLink {
+  color: #d4aa62;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  letter-spacing: 0.16em;
+  line-height: 1.3;
+  text-decoration: underline;
+  text-decoration-color: rgb(196 145 62 / 0.5);
+  text-underline-offset: 0.4rem;
+  transition: color 200ms ease, text-decoration-color 200ms ease;
+}
+
+.mapsLink:hover {
+  color: #f3d291;
+  text-decoration-color: #f3d291;
+}
+
+.routeButton {
+  display: inline-flex;
+  min-height: 3.5rem;
+  min-width: 12rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bf9148;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(115deg, #060503, #0f0c07 58%, #070604);
+  color: #e9c584;
+  font-size: 0.9rem;
+  letter-spacing: 0.22em;
+  text-align: center;
+  box-shadow: inset 0 1px 0 rgb(255 224 157 / 0.13), 0 0 10px rgb(190 141 56 / 0.09);
+  transition: color 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+}
+
+.routeButton:hover {
+  border-color: #e4bd76;
+  background: linear-gradient(115deg, #120e07, #251909 58%, #120e07);
+  color: #f5deb2;
+  box-shadow: inset 0 1px 0 rgb(255 224 157 / 0.22), 0 0 12px rgb(190 141 56 / 0.15);
+}
+
+.mapsLink:focus-visible,
+.routeButton:focus-visible {
+  outline: 2px solid #f4d28b;
+  outline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .copy {
+    max-width: 40rem;
+  }
+
+  .addressCard {
+    max-width: 100%;
+  }
+
+  .mapFrame {
+    height: clamp(24rem, 58vw, 32rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 2.5rem 1rem;
+  }
+
+  .layout {
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .kicker {
+    font-size: 0.9rem;
+  }
+
+  .title {
+    font-size: clamp(2.35rem, 10vw, 3.4rem);
+  }
+
+  .description {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .addressCard {
+    margin-top: 1.5rem;
+    padding: 1rem;
+  }
+
+  .addressMain {
+    font-size: clamp(1.55rem, 7vw, 2rem);
+  }
+
+  .mapFrame {
+    height: clamp(20rem, 78vw, 24rem);
+  }
+
+  .mapActions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+
+  .routeButton {
+    width: 100%;
+  }
+}

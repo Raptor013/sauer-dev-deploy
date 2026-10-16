@@ -1,0 +1,176 @@
+.footer {
+  position: relative;
+  border-top: 1px solid rgb(178 132 61 / 0.76);
+  padding: clamp(1.4rem, 2vw, 2rem) clamp(1rem, 3vw, 3rem);
+  background: #000;
+  color: #eee9df;
+  box-shadow: inset 0 1px 0 rgb(248 205 125 / 0.06);
+}
+
+.footer::before {
+  position: absolute;
+  inset: -1px 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 2%, rgb(242 198 113 / 0.65) 9%, transparent 16%, transparent 47%, rgb(252 218 145 / 0.82) 53%, transparent 59%, transparent 87%, rgb(232 184 95 / 0.6) 94%, transparent 99%);
+  content: "";
+  pointer-events: none;
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: clamp(1.5rem, 2.5vw, 3rem);
+  max-width: 92rem;
+  margin-inline: auto;
+}
+
+.brand {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: clamp(1rem, 1.8vw, 1.75rem);
+}
+
+.sauerLogo {
+  display: block;
+  width: clamp(7.5rem, 9.5vw, 9.5rem);
+  height: auto;
+  flex: none;
+}
+
+.tagline {
+  max-width: 18rem;
+  color: #d4cfc6;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(0.72rem, 0.85vw, 0.9rem);
+  line-height: 1.5;
+  letter-spacing: 0.28em;
+  text-wrap: balance;
+}
+
+.instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #d5d0c6;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.78rem, 0.85vw, 0.95rem);
+  white-space: nowrap;
+  transition: color 200ms ease;
+}
+
+.instagram:hover {
+  color: #f2d49a;
+}
+
+.instagram:focus-visible {
+  outline: 2px solid #e9c27a;
+  outline-offset: 5px;
+}
+
+.instagram svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  flex: none;
+  color: #c99a4f;
+}
+
+.copyright {
+  border-left: 1px solid rgb(183 138 66 / 0.62);
+  padding-left: clamp(1rem, 2vw, 2rem);
+  color: #bcb6ac;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(0.7rem, 0.78vw, 0.85rem);
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+}
+
+.raptorCredit {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: #bcac8c;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+}
+
+.raptorLogo {
+  display: block;
+  width: clamp(5.75rem, 7vw, 6.75rem);
+  height: auto;
+  opacity: 0.7;
+}
+
+@media (min-width: 641px) and (max-width: 1600px) {
+  .inner {
+    padding-right: 5.5rem;
+  }
+}
+
+@media (max-width: 1100px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    row-gap: 1.25rem;
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 1.3rem 1rem 1.5rem;
+  }
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.15rem;
+    row-gap: 1rem;
+  }
+
+  .brand {
+    width: 100%;
+    gap: 0.9rem;
+  }
+
+  .sauerLogo {
+    width: 7rem;
+  }
+
+  .tagline {
+    max-width: 13rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+  }
+
+  .instagram {
+    font-size: 0.75rem;
+  }
+
+  .copyright {
+    padding-left: 1rem;
+    font-size: 0.65rem;
+  }
+
+  .raptorCredit {
+    width: 100%;
+    border-top: 1px solid rgb(178 132 61 / 0.35);
+    padding-top: 0.75rem;
+  }
+
+  .raptorLogo {
+    width: 5.75rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .copyright {
+    border-left: 0;
+    padding-left: 0;
+  }
+}

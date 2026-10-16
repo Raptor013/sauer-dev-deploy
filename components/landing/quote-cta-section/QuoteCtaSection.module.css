@@ -1,0 +1,213 @@
+.section {
+  background: #000;
+  padding: clamp(2.25rem, 3.9vw, 5rem) clamp(1rem, 10vw, 15rem);
+  color: #f6f2e9;
+}
+
+.frame {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  border: 1px solid #ae803c;
+  padding: clamp(1.2rem, 1.9vw, 2.5rem) clamp(1.1rem, 2vw, 2.75rem);
+  background: linear-gradient(118deg, #090806, #020202 45%, #080706);
+  box-shadow: inset 0 0 0 1px rgb(255 223 157 / 0.07);
+}
+
+.frame::before {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 1%, #f4d28b 5%, transparent 10%, transparent 87%, #e6bd70 96%, transparent 100%) top / 100% 1px no-repeat,
+    linear-gradient(90deg, transparent 1%, #eac37a 5%, transparent 10%, transparent 48%, #edc87e 52%, transparent 56%, transparent 90%, #e5b86c 97%, transparent 100%) bottom / 100% 1px no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.topRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(1.5rem, 3.1vw, 4rem);
+}
+
+.headingBlock {
+  min-width: 0;
+}
+
+.kicker {
+  color: #dcb46d;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(0.8rem, 1.05vw, 1.35rem);
+  font-weight: 400;
+  letter-spacing: 0.34em;
+  line-height: 1.2;
+}
+
+.title {
+  max-width: 59rem;
+  margin-top: clamp(0.55rem, 0.85vw, 1rem);
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(2.3rem, 3.45vw, 4.7rem);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: 0.025em;
+}
+
+.whatsAppButton {
+  display: inline-flex;
+  min-height: clamp(4.25rem, 5.6vw, 7rem);
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.6rem, 1.1vw, 1.25rem);
+  border: 1px solid #f5d386;
+  border-radius: 4px;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(115deg, #c99743, #f3d27e 29%, #dfad53 62%, #c08a37);
+  color: #080706;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.25rem, 1.8vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgb(255 239 183 / 0.8), inset 0 -1px 0 rgb(106 66 20 / 0.55), 0 8px 20px rgb(154 101 31 / 0.12);
+  transition: transform 250ms ease, box-shadow 250ms ease, filter 250ms ease;
+}
+
+.whatsAppButton:hover {
+  box-shadow: inset 0 1px 0 rgb(255 245 204 / 0.95), inset 0 -1px 0 rgb(106 66 20 / 0.5), 0 10px 22px rgb(154 101 31 / 0.18);
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+}
+
+.whatsAppButton:focus-visible {
+  outline: 2px solid #ffe3a0;
+  outline-offset: 4px;
+}
+
+.whatsAppButton svg {
+  width: clamp(2rem, 3vw, 3.5rem);
+  height: auto;
+  flex: none;
+}
+
+.locationCard {
+  position: relative;
+  display: flex;
+  min-height: clamp(5.5rem, 6.6vw, 8rem);
+  align-items: center;
+  gap: clamp(1rem, 1.55vw, 2rem);
+  margin-top: clamp(1.25rem, 2.1vw, 2.6rem);
+  border: 1px solid #a97b38;
+  padding: clamp(0.85rem, 1.3vw, 1.55rem) clamp(1rem, 1.55vw, 2rem);
+  background: #020202;
+  box-shadow: inset 0 1px 0 rgb(251 217 151 / 0.1);
+}
+
+.locationCard::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(251 221 157 / 0.32) 54%, transparent) top / 100% 1px no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.locationCard svg {
+  width: clamp(2.3rem, 3.1vw, 4rem);
+  height: auto;
+  flex: none;
+  color: #e1ad4c;
+}
+
+.locationText {
+  min-width: 0;
+  font-style: normal;
+}
+
+.studioName {
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.15rem, 1.5vw, 1.85rem);
+  line-height: 1;
+  letter-spacing: 0.16em;
+}
+
+.addressLine {
+  margin-top: 0.25rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.8rem, 1.12vw, 1.35rem);
+  line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+  .topRow {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .whatsAppButton {
+    min-height: 4.25rem;
+    font-size: clamp(1.25rem, 3.2vw, 1.9rem);
+  }
+}
+
+@media (min-width: 901px) {
+  .section {
+    padding-inline: 12vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 2.5rem 1rem;
+  }
+
+  .frame {
+    padding: 1.1rem 0.85rem 1rem;
+  }
+
+  .kicker {
+    font-size: 0.9rem;
+  }
+
+  .title {
+    font-size: clamp(2.15rem, 8.6vw, 3.75rem);
+  }
+
+  .whatsAppButton {
+    gap: 0.6rem;
+    min-height: 4rem;
+    padding-inline: 0.55rem;
+    font-size: clamp(1.15rem, 4.8vw, 1.55rem);
+    letter-spacing: 0.1em;
+  }
+
+  .whatsAppButton svg {
+    width: 2rem;
+  }
+
+  .locationCard {
+    min-height: 0;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-top: 1.2rem;
+    padding: 0.85rem 0.7rem;
+  }
+
+  .locationCard svg {
+    width: 2.2rem;
+  }
+
+  .studioName {
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+  }
+
+  .addressLine {
+    font-size: 0.9rem;
+  }
+}

@@ -1,36 +1,49 @@
 import Image from "next/image";
-import { defaultWhatsAppHref } from "../whatsapp";
+import styles from "./FooterSection.module.css";
 
 export function FooterSection() {
   return (
-    <footer className="section-frame border-t border-white/10 px-6 py-6 text-xs uppercase tracking-[0.28em] text-white/45 sm:px-8 lg:px-12">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-wrap gap-4 sm:gap-6">
-          <a
-            href="https://instagram.com/sauer.tattoos"
-            className="transition-colors hover:text-white"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Instagram
-          </a>
-          <a
-            href={defaultWhatsAppHref}
-            target="_blank"
-            rel="noreferrer"
-            className="transition-colors hover:text-white"
-          >
-            WhatsApp
-          </a>
-        </div>
-        <div className="flex items-center gap-3">
-          <p>© 2026 sauer.tattoos</p>
+    <footer className={styles.footer}>
+      <div className={styles.inner}>
+        <div className={styles.brand}>
           <Image
-            src="/raptor.png"
+            src="/images/sauer-logo.webp"
+            alt="Sauer Tattoos"
+            width={1440}
+            height={720}
+            sizes="(max-width: 640px) 112px, 152px"
+            className={styles.sauerLogo}
+          />
+          <p className={styles.tagline}>
+            ALGUMAS HISTÓRIAS PRECISAM SER ETERNAS.
+          </p>
+        </div>
+
+        <a
+          href="https://instagram.com/sauer.tattoos"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.instagram}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+          </svg>
+          <span>@sauer.tattoos</span>
+        </a>
+
+        <p className={styles.copyright}>© 2026 SAUER TATTOOS</p>
+
+        <div className={styles.raptorCredit}>
+          <span>SITE POR</span>
+          <Image
+            src="/images/raptor-logo.png"
             alt="Raptor"
-            width={28}
-            height={28}
-            className="opacity-40"
+            width={1660}
+            height={948}
+            sizes="(max-width: 640px) 96px, 108px"
+            className={styles.raptorLogo}
           />
         </div>
       </div>

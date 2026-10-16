@@ -1,0 +1,284 @@
+.section {
+  overflow: hidden;
+  padding: clamp(3rem, 5vw, 6rem) clamp(1rem, 3.25vw, 4rem);
+  background: #000;
+  color: #f5f1e9;
+}
+
+.inner {
+  max-width: 110rem;
+  margin-inline: auto;
+}
+
+.heading {
+  max-width: 70rem;
+}
+
+.kickerRow {
+  display: flex;
+  width: min(100%, 48rem);
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.kicker {
+  color: #d7aa5d;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.35rem);
+  letter-spacing: 0.3em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.ornament {
+  position: relative;
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, #d5a95c, #f1d18c 23%, #a97a34 54%, rgb(169 122 52 / 0.1) 100%);
+}
+
+.ornament::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  background: #e0b66e;
+  content: "";
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.title {
+  margin-top: 0.85rem;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(2.75rem, 4vw, 4.8rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+}
+
+.description {
+  margin-top: 1rem;
+  color: #b9b4ac;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.5;
+}
+
+.carousel {
+  margin-top: clamp(2.25rem, 3vw, 3.5rem);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #a77d3a;
+  background: #050504;
+  box-shadow: inset 0 0 0 1px rgb(255 221 152 / 0.05);
+  transition: transform 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.card::before {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    linear-gradient(90deg, transparent 8%, rgb(255 221 148 / 0.88) 16%, transparent 24%, transparent 71%, rgb(238 186 98 / 0.6) 77%, transparent 84%) top / 100% 1px no-repeat,
+    linear-gradient(90deg, transparent 12%, rgb(233 183 96 / 0.6) 19%, transparent 26%, transparent 72%, rgb(253 214 137 / 0.82) 80%, transparent 88%) bottom / 100% 1px no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.card:hover {
+  border-color: #c39b59;
+  box-shadow: inset 0 0 0 1px rgb(255 221 152 / 0.09), 0 5px 16px rgb(154 103 38 / 0.1);
+  transform: translateY(-3px);
+}
+
+.visual {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  aspect-ratio: 2.2;
+  place-items: center;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 78% 12%, rgb(147 101 39 / 0.2), transparent 52%),
+    linear-gradient(125deg, #080705, #140f09 55%, #070605);
+}
+
+.visual::before {
+  position: absolute;
+  inset: -45%;
+  background:
+    repeating-radial-gradient(circle at 83% 18%, transparent 0 15px, rgb(175 126 55 / 0.12) 16px 17px, transparent 18px 31px),
+    repeating-radial-gradient(circle at 19% 84%, transparent 0 19px, rgb(178 121 47 / 0.1) 20px 21px, transparent 22px 38px);
+  content: "";
+  pointer-events: none;
+  transform: rotate(-9deg);
+}
+
+.visual::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.4), transparent 40%, rgb(0 0 0 / 0.25)), linear-gradient(180deg, rgb(0 0 0 / 0.2), transparent 50%, rgb(0 0 0 / 0.48));
+  content: "";
+  pointer-events: none;
+}
+
+.visualName {
+  position: relative;
+  z-index: 1;
+  color: #f4e8d1;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.15rem, 1.7vw, 1.75rem);
+  line-height: 1.2;
+  text-align: center;
+  text-shadow: 0 2px 8px #000;
+}
+
+.cardContent {
+  position: relative;
+  flex: 1;
+  border-top: 1px solid rgb(156 112 47 / 0.7);
+  padding: clamp(1.35rem, 1.7vw, 2rem);
+  background: linear-gradient(180deg, #080705, #030303 46%);
+}
+
+.cardContent::before {
+  position: absolute;
+  top: 0;
+  right: 1.5rem;
+  left: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ad823f 12%, #e3b669 48%, #ad823f 88%, transparent);
+  content: "";
+}
+
+.cardContent::after {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: #ddb164;
+  box-shadow: 0 0 0 4px #070605;
+  content: "";
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cardName {
+  color: #d8a85a;
+  font-family: var(--font-display), "Arial Narrow", sans-serif;
+  font-size: clamp(1.1rem, 1.35vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.cardText {
+  margin-top: 0.85rem;
+  color: #c6c0b7;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(0.92rem, 1vw, 1.05rem);
+  line-height: 1.55;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  display: inline-flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #b58a43;
+  border-radius: 50%;
+  background: #050504;
+  color: #dfb66e;
+  box-shadow: inset 0 0 0 1px rgb(255 221 152 / 0.06);
+  transition: border-color 200ms ease, color 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  transform: translateY(-50%);
+}
+
+.arrow:hover {
+  border-color: #edc57c;
+  background: #120d06;
+  color: #f5d594;
+  box-shadow: inset 0 0 0 1px rgb(255 221 152 / 0.13), 0 0 10px rgb(185 134 53 / 0.18);
+}
+
+.arrow:focus-visible {
+  outline: 2px solid #f3d292;
+  outline-offset: 4px;
+}
+
+.arrow:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.arrowIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.previous {
+  left: max(-1.5rem, calc(6px - clamp(1rem, 3.25vw, 4rem)));
+}
+
+.next {
+  right: max(-1.5rem, calc(6px - clamp(1rem, 3.25vw, 4rem)));
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding-block: 3rem;
+  }
+
+  .kickerRow {
+    gap: 0.85rem;
+  }
+
+  .kicker {
+    font-size: 0.95rem;
+  }
+
+  .title {
+    font-size: clamp(2.45rem, 10vw, 3.2rem);
+  }
+
+  .description {
+    margin-top: 0.8rem;
+  }
+
+  .carousel {
+    margin-top: 2rem;
+  }
+
+  .cardContent {
+    padding: 1.4rem;
+  }
+
+  .cardName {
+    font-size: 1.2rem;
+  }
+
+  .arrow {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .previous {
+    left: 0.35rem;
+  }
+
+  .next {
+    right: 0.35rem;
+  }
+}

@@ -1,10 +1,10 @@
-const whatsappPhone = "5521971795647";
+const whatsappPhone = "5521990937740";
 
 const defaultWhatsAppMessage =
-  "Oi, vim pelo site e gostaria de realizar um orçamento.";
+  "Olá, Sauer! Vim pelo site e gostaria de fazer um orçamento.";
 
 export function createWhatsAppHref(message = defaultWhatsAppMessage) {
-  return `https://api.whatsapp.com/send/?phone=${whatsappPhone}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+  return `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`;
 }
 
 export const defaultWhatsAppHref = createWhatsAppHref();
